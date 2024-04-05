@@ -1,0 +1,90 @@
+body {
+    background-image: url('/static/madison-okay.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background-color: transparent;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.00);
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-title {
+    color: #4a53ce;
+    font-size: 2rem;
+    text-shadow: 0 0 2px #FF0000, 0 0 5px #0000FF;
+    font-family: monospace;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.form-control {
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1rem;
+    font-size: 1.2rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin: auto;
+    display: block;
+    width: 60%;
+    margin-bottom: 1rem;
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-primary {
+    background-color: #4a53ce;
+    border-color: #4a53ce;
+    color: #333;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.2rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    display: block;
+    margin: auto;
+    width: 60%;
+}
+
+.btn-primary:hover {
+    background-color: #5f5f92;
+    border-color: #5f5f92;
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.25rem rgba(215, 245, 215, 0.5);
+}
+
+.text-danger-custom {
+    color: #ff0000;
+}
+
+@media (min-width: 576px) {
+    .card {
+        width: auto;
+    }
+}
