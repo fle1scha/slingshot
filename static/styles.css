@@ -1,8 +1,5 @@
 body {
-    background-image: url('/static/madison-okay.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: url('/static/madison-okay.jpg') no-repeat center center/cover;
     height: 100vh;
     margin: 0;
     display: flex;
@@ -14,7 +11,7 @@ body {
     background-color: transparent;
     padding: 1.5rem;
     border-radius: 0.5rem;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.00);
+    /* Removed the box-shadow as it has zero blur and zero spread (invisible) */
     width: 90%;
     max-width: 400px;
     display: flex;
@@ -22,52 +19,55 @@ body {
     align-items: center;
 }
 
-.form-title {
-    color: #4a53ce;
+.form-title, .btn-primary {
+    color: #737be4;
     font-size: 2rem;
+    text-align: center;
+}
+
+.text-danger {
+    color: #ffffff;
+    font-family: monospace;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.form-title {
     text-shadow: 0 0 2px #FF0000, 0 0 5px #0000FF;
     font-family: monospace;
     font-weight: bold;
     margin-bottom: 1.5rem;
-    text-align: center;
 }
 
-.form-group {
+
+.form-group, .form-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
 }
 
-.form-control {
-    border: none;
+.form-control, .btn-primary {
     border-radius: 0.25rem;
     padding: 0.75rem 1rem;
     font-size: 1.2rem;
-    background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    margin: auto;
     display: block;
     width: 60%;
-    margin-bottom: 1rem;
+    margin: 0.5rem auto;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 
-.form-control:focus {
-    outline: none;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+.form-control {
+    border: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
 .btn-primary {
     background-color: #4a53ce;
     border-color: #4a53ce;
     color: #333;
-    padding: 0.75rem 1.5rem;
-    font-size: 1.2rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
-    display: block;
-    margin: auto;
-    width: 60%;
+    
 }
 
 .btn-primary:hover {
@@ -75,16 +75,33 @@ body {
     border-color: #5f5f92;
 }
 
-.btn-primary:focus {
-    box-shadow: 0 0 0 0.25rem rgba(215, 245, 215, 0.5);
+.form-control:focus, .btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
 
-.text-danger-custom {
-    color: #ff0000;
+#validation-message, #response-message {
+    display: none; /* Hidden by default */
+    text-align: center;
+    width: 100%; /* Full width for centering text */
+    margin-top: 12px;
 }
 
-@media (min-width: 576px) {
+/* Adjustments for smaller screens */
+@media (max-width: 767px) {
     .card {
-        width: auto;
+        width: 90%;
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .form-control, .btn-primary {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .card {
+        width: auto; /* Overrides the width set out of the media query */
     }
 }
