@@ -42,8 +42,8 @@ form.addEventListener('submit', async (event) => {
                 }, 5000);
             }
         } catch (error) {
-            // Display a generic error message
-            responseMessage.innerHTML = '<p class="text-danger" id="error-message">An error occurred. Please try again later.</p>';
+            // Display a generic error message for other errors
+            responseMessage.innerHTML = '<p class="text-danger" id="error-message">please try again later.</p>';
 
             // Clear the error message after 5 seconds
             setTimeout(() => {

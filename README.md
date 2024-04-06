@@ -1,61 +1,86 @@
-# Slingshot
+## slingshot
 
-## Setup Instructions
+### To-Do: Tickets 
 
-1. **Create a virtual environment** in the project directory:
+- **[SLNG-1]** Move from pythonanywhere.com to AWS hosting. 
 
-    ```bash
-    python3 -m venv venv
-    ```
+- **[SLNG-2]** Continue repository implementation for `INSERT` new number and `SELECT` for number lookup. 
 
-2. **Activate the virtual environment**:
+- **[SLNG-3]** Add logic to `broadcast.py` so that a user cannot enter the same number twice. 
 
-   - On macOS and Linux:
+- **[SLNG-4]** Add logic to `broadcast.py` to get all numbers to prepare for broadcast. 
 
-     ```bash
-     source venv/bin/activate
-     ```
+- **[SLNG-5]** Add logic to `broadcast.py` using Twilio APIs or `for` loop on `send_message` to create a broadcast function.
 
-   - On Windows:
+- **[SLNG-6]** Find a better way to set env vars for `local` and `prod` deployments. How does this work with AWS? 
 
-     ```bash
-     venv\Scripts\activate
-     ```
+- **[SLING-7]** Update DNS so that `slingshot.wtf` forwards to `https://slingshot.wtf`. 
 
-3. **Install the required Python modules** with `pip`:
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+### Setup
+To set up the project, follow these steps:
 
-4. **Configure Twilio** by creating an account, obtaining your Account SID and Auth Token, and purchasing a phone number for SMS messaging.
+1. Create a virtual environment:
 
-5. **Set up environment variables** with your Twilio credentials:
+```zsh
+python3 -m venv venv
+```
 
-    ```bash
-    export TWILIO_ACCOUNT_SID='Your_Twilio_Account_SID'
-    export TWILIO_AUTH_TOKEN='Your_Twilio_Auth_Token'
-    export TWILIO_PHONE_NUMBER='Your_Twilio_Phone_Number'
-    ```
+2. Activate the virtual environment:
 
-    For permanent configuration, you may create a `.env` file or a `config.py`.
+On macOS and Linux:
+```zsh
+source venv/bin/activate
+```
 
-6. **Start the Flask application**:
+On Windows:
+```zsh
+venv\Scripts\activate
+```
 
-    ```bash
-    python app.py
-    ```
+3. Install the required Python modules:
 
-    The application will be accessible at `http://localhost:5000`.
+```zsh
+pip3 install -r requirements.txt
+```
 
-## Usage
+4. Twilio 
 
-Navigate to the root URL to access the user registration form. Once submitted, the app will attempt to send an SMS to the provided phone number.
+Sign up for a Twilio account and obtain your Account SID, auth token, and a Twilio phone number.
 
-## Deployment
+5. Set up environment variables
 
-Deploy the application on a web hosting service like PythonAnywhere, ensuring all environment variables are set in the production environment.
+Configure the following environment variables with your Twilio and MySQL credentials. At the moment, these are stored in `config.py`.
 
-## License
+```python
+# Twilio configuration
+TWILIO_ACCOUNT_SID
+TWILIO_AUTH_TOKEN
+TWILIO_PHONE_NUMBER
 
+# MySQL configuration
+MYSQL_HOST
+MYSQL_USER
+MYSQL_PASSWORD
+MYSQL_CHARSET
+
+# Database and database user configuration
+DB_NAME
+DB_USER
+DB_PASSWORD
+```
+
+
+### Usage
+Run the script below to set up the database and start the server.  The web app will be accessible at http://localhost:5000.
+
+
+```zsh
+python3 run.py
+```
+
+### Contributing
+Contributions to the project are welcome. 
+
+### License
 This project is licensed under the MIT License.
