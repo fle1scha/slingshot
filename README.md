@@ -1,69 +1,86 @@
-# slingshot
+## slingshot
 
-slingshot is an implementation of a simple web app to register users by taking their phone number and sending a message via SMS using Twilio's messaging service.
+### To-Do: Tickets 
 
-## Features
+- **[SLNG-1]** Move from pythonanywhere.com to AWS hosting. 
 
-- Web form for users to register their phone numbers.
-- Integration with Twilio's API to send out SMS messages.
-- Logging to record successful and failed message delivery attempts.
+- **[SLNG-2]** Continue repository implementation for `INSERT` new number and `SELECT` for number lookup. 
 
-### To Be Added
-- Database connection for storing and looking up numbers. 
-- Functionality for broadcast. 
+- **[SLNG-3]** Add logic to `broadcast.py` so that a user cannot enter the same number twice. 
 
-## Requirements
-See `requirements.txt`.
+- **[SLNG-4]** Add logic to `broadcast.py` to get all numbers to prepare for broadcast. 
+
+- **[SLNG-5]** Add logic to `broadcast.py` using Twilio APIs or `for` loop on `send_message` to create a broadcast function.
+
+- **[SLNG-6]** Find a better way to set env vars for `local` and `prod` deployments. How does this work with AWS? 
+
+- **[SLING-7]** Update DNS so that `slingshot.wtf` forwards to `https://slingshot.wtf`. 
 
 
-## Setup Instructions
+### Setup
+To set up the project, follow these steps:
 
-Before running the application, follow these steps to set up the required environment:
+1. Create a virtual environment:
 
-1. Install necessary libraries:
+```zsh
+python3 -m venv venv
+```
 
-    ```
-    pip install requirements.txt
-    ```
+2. Activate the virtual environment:
 
-2. Set up Twilio:
-   
-   - Create a Twilio account if you haven't done so already.
-   - Obtain your Account SID and Auth Token from Twilio dashboard.
-   - Purchase a Twilio phone number capable of sending SMS messages.
+On macOS and Linux:
+```zsh
+source venv/bin/activate
+```
 
-3. Create a `config.py` file in your project directory with the following content:
+On Windows:
+```zsh
+venv\Scripts\activate
+```
 
-    ```python
-    TWILIO_ACCOUNT_SID = 'Your_Twilio_Account_SID'
-    TWILIO_AUTH_TOKEN = 'Your_Twilio_Auth_Token'
-    TWILIO_PHONE_NUMBER = 'Your_Twilio_Phone_Number'
-    ```
+3. Install the required Python modules:
 
-    Replace the placeholder values with your actual Twilio credentials and phone number.
+```zsh
+pip3 install -r requirements.txt
+```
 
-4. Run the Flask application:
+4. Twilio 
 
-    ```
-    python app.py
-    ```
+Sign up for a Twilio account and obtain your Account SID, auth token, and a Twilio phone number.
 
-    By default, the app will run on `http://localhost:5000` unless configured otherwise.
+5. Set up environment variables
 
-5. Access the application via the browser and test the registration feature.
+Configure the following environment variables with your Twilio and MySQL credentials. At the moment, these are stored in `config.py`.
 
-## Usage
+```python
+# Twilio configuration
+TWILIO_ACCOUNT_SID
+TWILIO_AUTH_TOKEN
+TWILIO_PHONE_NUMBER
 
-Upon accessing the root URL, users will be presented with a form to enter their phone number. Once the form is submitted, the backend will attempt to send a welcome SMS to the number provided.
+# MySQL configuration
+MYSQL_HOST
+MYSQL_USER
+MYSQL_PASSWORD
+MYSQL_CHARSET
 
-## Deployment
+# Database and database user configuration
+DB_NAME
+DB_USER
+DB_PASSWORD
+```
 
-This application is ready to be deployed on PythonAnywhere or other hosting services that support Flask apps. Ensure that you configure your environment variables accordingly for production use.
 
-## Logging
+### Usage
+Run the script below to set up the database and start the server.  The web app will be accessible at http://localhost:5000.
 
-The application makes use of Python's `logging` module to log message send events. Logs are outputted to the console with timestamps, log levels, and messages.
 
-## License
+```zsh
+python3 run.py
+```
 
-This application is open-source software licensed under the MIT license.
+### Contributing
+Contributions to the project are welcome. 
+
+### License
+This project is licensed under the MIT License.
