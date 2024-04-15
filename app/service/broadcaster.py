@@ -1,5 +1,5 @@
 from twilio.base.exceptions import TwilioRestException
-import config
+from config import Config
 
 class Broadcaster:
  
@@ -41,10 +41,10 @@ class Broadcaster:
    # Sends a message to the number and creates a db entry
     def send_message(self, name, phone_number, message_body):
         try:
-            if config.ENVIRONMENT != 'DEV':
+            if Config.ENVIRONMENT != 'development':
                 message = self.client.messages.create(
                     body=message_body,
-                    from_=config.TWILIO_PHONE_NUMBER,
+                    from_=Config.TWILIO_PHONE_NUMBER,
                     to=phone_number
                 )
                 self.logger.info(f"Message send initiated to {phone_number}. sid: {message.sid}")

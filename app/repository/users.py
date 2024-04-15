@@ -1,5 +1,5 @@
 import pymysql
-import config
+from config import Config 
 
 class Users:
     def __init__(self, logger):
@@ -16,11 +16,11 @@ class Users:
         Creates a connection to the existing database with tables already set up.
         """
         return pymysql.connect(
-            host=config.MYSQL_HOST,
-            user=config.DB_USER,
-            password=config.DB_PASSWORD,
-            db=config.DB_NAME,
-            charset=config.MYSQL_CHARSET,
+            host=Config.MYSQL_HOST,
+            user=Config.DB_USER,
+            password=Config.DB_PASSWORD,
+            db=Config.DB_NAME,
+            charset=Config.MYSQL_CHARSET,
             autocommit=True
         )
 
@@ -87,7 +87,7 @@ class Users:
 
     # Class-level SQL statements
     CREATE_TABLE_USERS_SQL = f"""
-    CREATE TABLE IF NOT EXISTS `{config.DB_NAME}`.`users` (
+    CREATE TABLE IF NOT EXISTS `{Config.DB_NAME}`.`users` (
         `id` INT AUTO_INCREMENT PRIMARY KEY,
         `name` VARCHAR(100),
         `phone_number` VARCHAR(15) NOT NULL UNIQUE,

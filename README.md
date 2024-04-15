@@ -50,7 +50,7 @@ Sign up for a Twilio account and obtain your Account SID, auth token, and a Twil
 
 5. Set up environment variables
 
-Configure the following environment variables with your Twilio and MySQL credentials. At the moment, these are stored in `config.py`.
+Configure the following environment variables with your Twilio and MySQL credentials. At the moment, these are stored in `.env` and loaded into `config.py`.
 
 ```python
 # Twilio configuration
