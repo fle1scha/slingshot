@@ -7,7 +7,7 @@ def index():
     if request.method == 'POST':
         input_phone_number = request.form['phone_number']
         welcome_message = 'welcome! slingshot is a community adventure project. you\'ll hear from us soon.'
-        success, error_message = broadcaster.send_message(input_phone_number, welcome_message)
+        success, error_message = broadcaster.send_message("", input_phone_number, welcome_message)
         
         if success:
             return jsonify({'success': True})
