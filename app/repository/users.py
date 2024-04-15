@@ -69,19 +69,23 @@ class Users:
         """
         try:
             self.execute_sql_command(INSERT_USER_SQL, (name, phone_number))
-            return True, None 
+            return True, None  # Success, no error
+        except pymysql.err.IntegrityError:
+            self.logger.info(f"Failed to add user {name} with phone number {phone_number} to the database. Error: Duplicate phone number")
+            return False, 'already_registered'
         except pymysql.MySQLError as e:
-            self.logger.error(f"Error with insert_new_user: {e}")
-            return False, "error with insert_new_user"
+            self.logger.error(f"Failed to add user {name} with phone number {phone_number} to the database. Error: {e}")
+            return False, 'unknown_error'
 
     def get_all_users(self):
         SELECT_USER_SQL = "SELECT * FROM users ORDER BY date_added DESC;"
         try:
-            return self.run_select_query(SELECT_USER_SQL), None
+            return self.run_select_query(SELECT_USER_SQL)
         except pymysql.MySQLError as e:
             self.logger.error(f"Error with get_all_users: {e}")
-            return None, "error with get_all_users" 
+            return None  # Failure
 
+    # Class-level SQL statements
     CREATE_TABLE_USERS_SQL = f"""
     CREATE TABLE IF NOT EXISTS `{config.DB_NAME}`.`users` (
         `id` INT AUTO_INCREMENT PRIMARY KEY,

@@ -38,7 +38,7 @@ class Broadcaster:
 
         return phone_numbers
     
-    # Sends a message to the number and creates a db entry
+   # Sends a message to the number and creates a db entry
     def send_message(self, name, phone_number, message_body):
         try:
             if config.ENVIRONMENT != 'DEV':
@@ -47,18 +47,19 @@ class Broadcaster:
                     from_=config.TWILIO_PHONE_NUMBER,
                     to=phone_number
                 )
-                
                 self.logger.info(f"Message send initiated to {phone_number}. sid: {message.sid}")
-            
+
             # Add the user to the database
-            result, error = self.repository.insert_new_user(name, phone_number)
-            if error:
-                self.logger.error(f"Failed to add user {name} with phone number {phone_number} to the database. Error: {error}")
-                return False, 'Error adding user to the database. Please try again later.'
-            
+            success, error_message = self.repository.insert_new_user(name, phone_number)
+            if not success:
+                if error_message == 'already_registered':
+                    return False, 'already with us.' #external
+                else:
+                    self.logger.error(f"Failed to add user {name} with phone number {phone_number} to the database. Error: {error_message}")
+                    return False, 'error. please try again later.' #external
+
             return True, ''
-        
+
         except TwilioRestException as e:
             self.logger.error(f"Message send failed to {phone_number}. Error: {str(e)}")
-            return False, 'Error sending message. Please try again later.'
-        
+            return False, 'error. please try again later.'
