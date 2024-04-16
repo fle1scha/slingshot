@@ -38,7 +38,7 @@ form.addEventListener('submit', async (event) => {
                 errorMessage.textContent = data.error_message;
                 errorMessage.style.display = 'block';
 
-                // Clear the error message after 5 seconds
+                // Clear the error message after 1.5 seconds
                 setTimeout(() => {
                     errorMessage.style.display = 'none';
                 }, 1500);
@@ -48,7 +48,7 @@ form.addEventListener('submit', async (event) => {
             errorMessage.textContent = 'error. please try again later.';
             errorMessage.style.display = 'block';
 
-            // Clear the error message after 5 seconds
+            // Clear the error message after 1.5 seconds
             setTimeout(() => {
                 errorMessage.style.display = 'none';
             }, 1500);
@@ -57,7 +57,7 @@ form.addEventListener('submit', async (event) => {
         // Display the custom validation error message
         validationMessage.style.display = 'block';
 
-        // Hide the validation message after 3 seconds
+        // Hide the validation message after 1.5 seconds
         setTimeout(() => {
             validationMessage.style.display = 'none';
         }, 1500);
