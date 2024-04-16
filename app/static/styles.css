@@ -11,7 +11,6 @@ body {
     background-color: transparent;
     padding: 1.5rem;
     border-radius: 0.5rem;
-    /* Removed the box-shadow as it has zero blur and zero spread (invisible) */
     width: 90%;
     max-width: 400px;
     display: flex;
@@ -81,9 +80,9 @@ body {
 }
 
 #validation-message, #response-message {
-    display: none; /* Hidden by default */
+    display: none;
     text-align: center;
-    width: 100%; /* Full width for centering text */
+    width: 100%;
     margin-top: 12px;
 }
 
@@ -102,6 +101,6 @@ body {
 
 @media (min-width: 768px) {
     .card {
-        width: auto; /* Overrides the width set out of the media query */
+        width: auto;
     }
 }

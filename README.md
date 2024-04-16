@@ -2,17 +2,17 @@
 
 ### To-Do: Tickets 
 
-- **[SLNG-1]** Move from pythonanywhere.com to AWS hosting. 
+- ~**[SLNG-1]** Move from pythonanywhere.com to AWS hosting.~
 
-- **[SLNG-2]** Continue repository implementation for `INSERT` new number and `SELECT` for number lookup. 
+- ~**[SLNG-2]** Continue repository implementation for `INSERT` new number and `SELECT` for number lookup.~
 
-- **[SLNG-3]** Add logic to `broadcast.py` so that a user cannot enter the same number twice. 
+- ~**[SLNG-3]** Add logic to `broadcast.py` so that a user cannot enter the same number twice.~
 
 - **[SLNG-4]** Add logic to `broadcast.py` to get all numbers to prepare for broadcast. 
 
 - **[SLNG-5]** Add logic to `broadcast.py` using Twilio APIs or `for` loop on `send_message` to create a broadcast function.
 
-- **[SLNG-6]** Find a better way to set env vars for `local` and `prod` deployments. How does this work with AWS? 
+- ~**[SLNG-6]** Find a better way to set env vars for `local` and `prod` deployments. How does this work with AWS?~
 
 - **[SLING-7]** Update DNS so that `slingshot.wtf` forwards to `https://slingshot.wtf`. 
 
@@ -50,24 +50,22 @@ Sign up for a Twilio account and obtain your Account SID, auth token, and a Twil
 
 5. Set up environment variables
 
-Configure the following environment variables with your Twilio and MySQL credentials. At the moment, these are stored in `.env` and loaded into `config.py`.
+Configure the following environment variables with your Twilio and MySQL credentials. At the moment, these are stored in `.env` and loaded into `config.py`. 
 
 ```python
 # Twilio configuration
 TWILIO_ACCOUNT_SID
 TWILIO_AUTH_TOKEN
 TWILIO_PHONE_NUMBER
+```
 
-# MySQL configuration
-MYSQL_HOST
-MYSQL_USER
-MYSQL_PASSWORD
-MYSQL_CHARSET
-
-# Database and database user configuration
-DB_NAME
-DB_USER
-DB_PASSWORD
+On AWS, Elastic Beanstalk will also set the following environment variables, so they should be configured for local work too.
+```python
+RDS_HOSTNAME
+RDS_PORT
+RDS_USERNAME
+RDS_PASSWORD
+RDS_DB_NAME
 ```
 
 
@@ -76,7 +74,12 @@ Run the script below to set up the database and start the server.  The web app w
 
 
 ```zsh
-python3 run.py
+python3 app.py
+```
+
+## Preparing for deployment
+```zsh
+zip -r `date +%d%m%y`-slingshot.zip . -x "*.git*" -x "__pycache__/*" -x "*.env" -x "*.vscode*" -x "venv/*"
 ```
 
 ### Contributing
