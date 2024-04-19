@@ -18,6 +18,8 @@
 
 - ~**[SLING-8]** Add new DWSS logo and background image~
 
+- ~**[SLING-9]** Add new name input~
+
 
 ### Setup
 To set up the project, follow these steps:
