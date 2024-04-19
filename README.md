@@ -16,6 +16,8 @@
 
 - **[SLING-7]** Update DNS so that `slingshot.wtf` forwards to `https://slingshot.wtf`. 
 
+- ~**[SLING-8]** Add new DWSS logo and background image~
+
 
 ### Setup
 To set up the project, follow these steps:
@@ -72,18 +74,20 @@ RDS_DB_NAME
 ### Usage
 Run the script below to set up the database and start the server.  The web app will be accessible at http://localhost:5000.
 
-
 ```zsh
 python3 app.py
+```
+
+To hit the mysql server locally, use the following command. You will be prompted to enter the password for the user for root.
+
+```zsh
+mysql -h localhost -u root -p
 ```
 
 ## Preparing for deployment
 ```zsh
 zip -r `date +%d%m%y`-slingshot.zip . -x "*.git*" -x "__pycache__/*" -x "*.env" -x "*.vscode*" -x "venv/*"
 ```
-
-### Contributing
-Contributions to the project are welcome. 
 
 ### License
 This project is licensed under the MIT License.

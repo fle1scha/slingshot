@@ -1,10 +1,11 @@
 body {
-    background: url('/static/madison-okay.jpg') no-repeat center center/cover;
+    background: url('/static/madison-okay.png') no-repeat center center/cover;
     height: 100vh;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative; /* Added to position the disclaimer absolutely relative to the body */
 }
 
 .card {
@@ -18,26 +19,36 @@ body {
     align-items: center;
 }
 
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.logo {
+    max-width: 150px;
+    height: auto;
+}
+
 .form-title, .btn-primary {
-    color: #737be4;
+    color: #ffffff; /* Ensure slingshot text matches logo color (assumed white) */
     font-size: 2rem;
     text-align: center;
 }
 
-.text-danger {
-    color: #ffffff;
+.text-danger, .small-text {
+    color: #ffffff; /* Ensuring small text and error messages are visible */
     font-family: monospace;
-    font-size: 1rem;
+    font-size: 0.9rem;
     text-align: center;
 }
 
 .form-title {
-    text-shadow: 0 0 2px #FF0000, 0 0 5px #0000FF;
+    text-shadow: 0 0 2px #FF0000, 0 0 5px #0000FF; /* Enhancing visibility */
     font-family: monospace;
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
-
 
 .form-group, .form-container {
     display: flex;
@@ -63,15 +74,14 @@ body {
 }
 
 .btn-primary {
-    background-color: #4a53ce;
-    border-color: #4a53ce;
-    color: #333;
-    
+    background-color: #0f754492;
+    border-color: #0f754492;
+    color: #ffffff; /* Set the text color of the button to white */
 }
 
 .btn-primary:hover {
-    background-color: #5f5f92;
-    border-color: #5f5f92;
+    background-color: #0e6b3e92;
+    border-color: #0e6b3e92;
 }
 
 .form-control:focus, .btn-primary:focus {
@@ -79,27 +89,25 @@ body {
     box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
 
-#validation-message, #response-message {
-    display: none;
-    text-align: center;
-    width: 100%;
-    margin-top: 12px;
+.small-text {
+    position: absolute;
+    bottom: 10px; 
+    width: 60%;
+    text-align: center; 
+    font-size: 0.5rem;
 }
 
-/* Adjustments for smaller screens */
 @media (max-width: 767px) {
-    .card {
-        width: 90%;
-        max-width: 100%;
-        padding: 1rem;
-    }
-
-    .form-control, .btn-primary {
+    .form-control, .btn-primary, .small-text {
         width: 100%;
     }
+
+    .logo {
+        max-width: 120px;
+    }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 767px) {
     .card {
         width: auto;
     }
