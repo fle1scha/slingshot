@@ -43,12 +43,12 @@ class Broadcaster:
             success, error_message = self.repository.insert_new_user(name, phone_number)
             if not success:
                 if error_message == 'already_registered':
-                    self.logger.info(f"{phone_number} already in database. Error: {error_message}")
+                    self.logger.info(f"{phone_number} under name {name} already in database. Error: {error_message}")
                     return False, 'already with us.'
                 else:
-                    self.logger.error(f"Failed to add user with phone number {phone_number} to the database. Error: {error_message}")
+                    self.logger.error(f"Failed to add {name} with phone number {phone_number} to the database. Error: {error_message}")
                     return False, 'error. please try again later'
-                
+
             # In local, don't hit Twilio messages.create API
             if Config.ENVIRONMENT != 'development':
                 try:
@@ -57,17 +57,15 @@ class Broadcaster:
                         from_=Config.TWILIO_PHONE_NUMBER,
                         to=phone_number
                     )
-                    self.logger.info(f"twilioClient.message.create initiated to {phone_number}. message sid: {message.sid}")
+                    self.logger.info(f"twilioClient.message.create initiated to {name} on {phone_number}. message sid: {message.sid}")
                     return True, ""
-                
                 except TwilioRestException as e:
                     error_message = str(e)
-                    self.logger.error(f"Message send failed to {phone_number}. Error: {error_message}")
+                    self.logger.error(f"Message send failed to {name} with number {phone_number}. Error: {error_message}")
                     return False, 'error. please try again later'
             else:
                 self.logger.info(f"Skipping Twilio API call in {Config.ENVIRONMENT} environment")
                 return True, ""
-
         except Exception as e:
-            self.logger.error(f"Unexpected error occurred while sending message to {phone_number}. Error: {str(e)}")
+            self.logger.error(f"Unexpected error occurred while sending message to {name} with number {phone_number}. Error: {str(e)}")
             return False, 'error. please try again later'
