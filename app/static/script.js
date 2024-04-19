@@ -3,6 +3,7 @@ const form = document.getElementById('form');
 const formGroup = document.getElementById('form-group');
 const formTitle = document.getElementById('form-title');
 const successTitle = document.getElementById('success-title');
+const logoContainer = document.getElementById('logo-container')
 const responseMessage = document.getElementById('response-message');
 const validationMessage = document.getElementById('validation-message');
 const errorMessage = document.getElementById('error-message');
@@ -26,16 +27,29 @@ form.addEventListener('submit', async (event) => {
 
             const data = await response.json();
 
-            if (response.ok) {
-                // Hide the form and form-group
-                formGroup.style.display = 'none';
-
-                // Hide the form title and show the success title
-                formTitle.style.display = 'none';
-                successTitle.style.display = 'block';
+            if (data.success) {
+                    logoContainer.style.display = 'none';
+                    formGroup.style.display = 'none';                
+                    successTitle.style.display = 'block';
             } else {
                 // Display the error message
-                errorMessage.textContent = data.error_message;
+                if (errorMessage) {
+                    errorMessage.textContent = data.error_message;
+                    errorMessage.style.display = 'block';
+
+                    // Clear the error message after 1.5 seconds
+                    setTimeout(() => {
+                        if (errorMessage) {
+                            errorMessage.style.display = 'none';
+                        }
+                    }, 1500);
+                }
+            }
+        } catch (error) {
+
+            // Display a generic error message for other errors
+            if (errorMessage) {
+                errorMessage.textContent = 'An unexpected error occurred. Please try again later.';
                 errorMessage.style.display = 'block';
 
                 // Clear the error message after 1.5 seconds
@@ -43,15 +57,6 @@ form.addEventListener('submit', async (event) => {
                     errorMessage.style.display = 'none';
                 }, 1500);
             }
-        } catch (error) {
-            // Display a generic error message for other errors
-            errorMessage.textContent = 'error. please try again later.';
-            errorMessage.style.display = 'block';
-
-            // Clear the error message after 1.5 seconds
-            setTimeout(() => {
-                errorMessage.style.display = 'none';
-            }, 1500);
         }
     } else {
         // Display the custom validation error message
