@@ -36,6 +36,16 @@ body {
     text-align: center;
 }
 
+.form-small {
+    color: #ffffff; /* Ensure slingshot text matches logo color (assumed white) */
+    font-size: 1rem;
+    text-align: center;
+    text-shadow: 0 0 2px #FF0000, 0 0 5px #0000FF; /* Enhancing visibility */
+    font-family: monospace;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
 .text-danger, .small-text {
     color: #ffffff; /* Ensuring small text and error messages are visible */
     font-family: monospace;
@@ -95,6 +105,42 @@ body {
     width: 60%;
     text-align: center; 
     font-size: 0.5rem;
+}
+
+.form-input {
+    width: 210px;
+}
+
+.form-select {
+    width: 240px;
+}
+
+.tshirt-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.tshirt-box {
+    width: 200px;
+    height: 200px;
+    border: 1px solid #ccc;
+    margin: 0 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.tshirt-box:hover {
+    transform: scale(1.05);
+}
+
+.tshirt-image {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 @media (max-width: 767px) {
