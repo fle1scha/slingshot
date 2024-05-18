@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>slingshot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="form-small" id="merch-text">Merch supports slingshot.wtf, select your player below</h5>
+            <div class="tshirt-container">
+                <div class="tshirt-box" id="tshirt-box-1">
+                    <img src="{{ url_for('static', filename='38R1.png') }}" alt="Tshirt 1" class="tshirt-image"
+                        id="tshirt-image-1">
+                    <img src="{{ url_for('static', filename='38R2.png') }}" alt="Tshirt 2" class="tshirt-image"
+                        id="tshirt-image-2" style="display: none;">
+                </div>
+                <div class="tshirt-box" id="tshirt-box-2">
+                    <img src="{{ url_for('static', filename='dragon1.png') }}" alt="Tshirt 1" class="tshirt-image"
+                        id="tshirt-image-3">
+                    <img src="{{ url_for('static', filename='dragon2.png') }}" alt="Tshirt 2" class="tshirt-image"
+                        id="tshirt-image-4" style="display: none;">
+                </div>
+            </div>
+
+            <div class="form-container" id="form-group" style="display: none">
+                <form method="POST" id="form" novalidate>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="name">
+                    <input type="tel" class="form-control" id="phone_number" name="phone_number"
+                        placeholder="phone number">
+                    <select class="form-control" id="shirt_size" name="shirt_size">
+                        <option value="">Select Shirt Size</option>
+                        <option value="S">Small</option>
+                        <option value="M">Medium</option>
+                        <option value="L">Large</option>
+                        <option value="XL">X-Large</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">submit</button>
+                </form>
+            </div>
+            <h4 class="form-title" id="success-title" style="display: none;">
+                see you soon.
+            </h4>
+
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
