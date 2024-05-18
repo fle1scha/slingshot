@@ -3,7 +3,7 @@ from twilio.rest import Client
 from config import Config
 import sys
 
-broadcast_text = "good day, this is your local racing snake.\n\n05/17; race at 1830.\n\n\t1. teams of two. find a mate at registration.\n\t2. mixed surface. share a bike if you need to.\n\t3. bring your own baton. neck tie, hot dog, banana.\n\t4. spectators lark and dance.\n\nslingshot.wtf"
+broadcast_text = "psst, this is one of the marshals.\n\nremember, it's mixed surface, teams of 2, registration 1730, race 1830; 37.76969, -122.48895.\n\ndon't tell anyone, but I would try be near the front at lap 7...\n\nslingshot.wtf"
 
 def validate_environment():
     """Validate the presence of required environment variables."""
@@ -24,7 +24,7 @@ def retrieve_contacts():
     # print(f"Unique phone numbers (in the format +1XXXXXXXXXX): {contacts}")
     print(f"Total number of unique phone numbers (in the format +1XXXXXXXXXX): {len(contacts)}")
 
-    return 
+    return contacts
 
 
 def send_messages(contacts, target_number=None):
