@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slingshot - order</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="form-small" id="merch-text">thanks for racing. support slingshot:</h5>
+            <div class="tshirt-container" id="tshirt-container">
+                <div class="tshirt-box" id="tshirt-box-1">
+                    <img src="{{ url_for('static', filename='38R_back.png') }}" alt="38R Image 1" class="tshirt-image" id="tshirt-image-1">
+                    <img src="{{ url_for('static', filename='38R_front.png') }}" alt="38R Image 2" class="tshirt-image" id="tshirt-image-2" style="display: none;">
+                </div>
+                <div class="tshirt-box" id="tshirt-box-2">
+                    <img src="{{ url_for('static', filename='dragon_back.png') }}" alt="Dragon Image 1" class="tshirt-image" id="tshirt-image-3">
+                    <img src="{{ url_for('static', filename='dragon_front.png') }}" alt="Dragon Image 2" class="tshirt-image" id="tshirt-image-4" style="display: none;">
+                </div>
+            </div>
+
+            <div id="form-group" style="display: none;">
+                <form class="form-container" method="POST" action="/merch" id="form" novalidate>
+                    <input type="hidden" id="tshirt_type" name="tshirt_type" value="">
+                    <input type="text" class="form-input" id="name" name="name" placeholder="name" required>
+                    <input type="tel" class="form-input" id="phone_number" name="phone_number" placeholder="phone number" required>
+                    <select class="form-select" id="shirt_size" name="shirt_size" required>
+                        <option value="" disabled selected>select size</option>
+                        <option value="small">small</option>
+                        <option value="medium">medium</option>
+                        <option value="large">large</option>
+                        <option value="XL">XL</option>
+                    </select>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary" id="back-button">back</button>
+                        <button type="submit" class="btn btn-primary" id="submit-button">order</button>
+                    </div>
+                    <p class="text-danger" id="validation-message" style="display:none;"></p>
+                </form>
+            </div>
+            <div>
+                <p class="text-danger" id="error-message" style="display:none;"></p>
+            </div>
+            <h4 class="form-title" id="success-title" style="display: none;">all set.</h4>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='merch-script.js') }}"></script>
+</body>
+</html>

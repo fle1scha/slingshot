@@ -3,7 +3,7 @@ from twilio.rest import Client
 from config import Config
 import sys
 
-broadcast_text = "psst, this is one of the marshals.\n\nremember, it's mixed surface, teams of 2, registration 1730, race 1830; 37.76969, -122.48895.\n\ndon't tell anyone, but I would try be near the front at lap 7...\n\nslingshot.wtf"
+broadcast_text = "mailman again. please reply with your address. $40 on delivery.\n\nslingshot.wtf"
 
 def validate_environment():
     """Validate the presence of required environment variables."""
