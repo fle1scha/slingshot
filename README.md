@@ -2,24 +2,7 @@
 
 ### To-Do: Tickets 
 
-- ~**[SLNG-1]** Move from pythonanywhere.com to AWS hosting.~
-
-- ~**[SLNG-2]** Continue repository implementation for `INSERT` new number and `SELECT` for number lookup.~
-
-- ~**[SLNG-3]** Add logic to `broadcast.py` so that a user cannot enter the same number twice.~
-
-- **[SLNG-4]** Add logic to `broadcast.py` to get all numbers to prepare for broadcast. 
-
-- **[SLNG-5]** Add logic to `broadcast.py` using Twilio APIs or `for` loop on `send_message` to create a broadcast function.
-
-- ~**[SLNG-6]** Find a better way to set env vars for `local` and `prod` deployments. How does this work with AWS?~
-
 - **[SLING-7]** Update DNS so that `slingshot.wtf` forwards to `https://slingshot.wtf`. 
-
-- ~**[SLING-8]** Add new DWSS logo and background image~
-
-- ~**[SLING-9]** Add new name input~
-
 
 ### Setup
 To set up the project, follow these steps:
