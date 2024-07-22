@@ -9,6 +9,8 @@ const validationMessage = document.getElementById('validation-message');
 const errorMessage = document.getElementById('error-message');
 const nameInput = document.getElementById('name');
 const phoneNumberInput = document.getElementById('phone_number');
+var video = document.getElementById('background-video');
+
 
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -79,7 +81,6 @@ function isValidName(name) {
 }
 
 function showSignUp() {
-    var video = document.getElementById('background-video');
     video.play();
     
     var rerunButton = document.getElementById('rerun-button');
@@ -93,5 +94,5 @@ window.onload = function() {
     setTimeout(function() {
         var rerunButton = document.getElementById('rerun-button');
         rerunButton.style.display = 'flex'; 
-    }, 2000);
+    }, 5000);
 };
