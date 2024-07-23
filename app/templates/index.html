@@ -9,10 +9,9 @@
 </head>
 
 <body>
-    <video id="background-video" class="video-background" preload = "true" autoplay loop muted playsinline>
-        <source src="{{ url_for('static', filename='videos/sample.mp4') }}" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+    <div id="background-video">
+        <img src="{{ url_for('static', filename='park_relay.gif') }}" alt="Background Image" class="video-background">
+    </div>
 
     <div id="rerun-button" class="rerun-button" onclick="showSignUp()">
         <button>be a part of it</button>

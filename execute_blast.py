@@ -19,12 +19,14 @@ def retrieve_contacts():
     for message in messages:
         # Check if the phone number is in the format +1XXXXXXXXXX
         if message.to.startswith('+1') and len(message.to) == 12:
-            contacts.add(message.to)
+            # Remove the leading +1 to get the 10-digit number
+            phone_number = message.to[2:]
+            contacts.add(phone_number)
 
-    # print(f"Unique phone numbers (in the format +1XXXXXXXXXX): {contacts}")
-    print(f"Total number of unique phone numbers (in the format +1XXXXXXXXXX): {len(contacts)}")
-
-    return contacts
+    # print(f"Unique 10-digit phone numbers: {contacts}")
+    print(f"Total number of unique 10-digit phone numbers: {len(contacts)}")
+    print(contacts)
+    return
 
 
 def send_messages(contacts, target_number=None):
@@ -85,8 +87,9 @@ def main():
     if target_number:
         failed_contacts = send_messages([], target_number)
     else:
-        contacts = retrieve_contacts()
-        failed_contacts = send_messages(contacts)
+        contracts = retrieve_contacts()
+        print(contracts)
+        # failed_contacts = send_messages(contacts)
 
     if failed_contacts:
         print(f"The following {len(failed_contacts)} contacts failed to receive the message:")

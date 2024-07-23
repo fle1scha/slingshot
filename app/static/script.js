@@ -80,9 +80,7 @@ function isValidName(name) {
     return name.length >= 3 && name.length < 51;
 }
 
-function showSignUp() {
-    video.play();
-    
+function showSignUp() {    
     var rerunButton = document.getElementById('rerun-button');
     rerunButton.style.display = 'none';
     
