@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>slingshot</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
 <body>
-    <div class="card">
-        <div class="card-body">
-            <!--
-            <div class="logo-container" id="logo-container">
-                <img src="{{ url_for('static', filename='dragon_wont_sit_still_logo.png') }}"
-                    alt="Dragon Won't Sit Still Logo" class="logo">
-            </div>
-                        -->
+    <div id="background-video">
+        <img src="{{ url_for('static', filename='park_relay.gif') }}" alt="Background Image" class="video-background">
+    </div>
 
-            <h4 class="form-title" id="success-title" style="display: block;">back soon.</h4>
+    <div id="rerun-button" class="rerun-button" onclick="showSignUp()">
+        <button>be a part of it</button>
+    </div>
 
-            <!--
+    <div id="sign-up-form" class="content">
+        <div class="logo-container" id ="logo">
+            <img src="{{ url_for('static', filename='dragon_wont_sit_still_logo.png') }}" alt="Logo" class="logo">
+        </div>
+        <div class="card">
             <div id="form-group">
                 <form class="form-container" method="POST" id="form" novalidate>
                     <input type="text" class="form-input" id="name" name="name" placeholder="name">
@@ -36,9 +39,8 @@
             </div>
         </div>
     </div>
-    <p class="small-text">by submitting, you agree to receive updates about races, events, and adventures from slingshot.wtf</p>
+
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-    -->
 </body>
 
 </html>
