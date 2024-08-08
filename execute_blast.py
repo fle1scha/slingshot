@@ -3,11 +3,11 @@ from twilio.rest import Client
 from config import Config
 import sys
 
-broadcast_text = "mailman again. please reply with your address. $40 on delivery.\n\nslingshot.wtf"
+broadcast_text = "slingshot.wtf: dusk trail run tomorrow - she's a beauty. registration at 19:00; meet at 37.76141, -122.45195; 10, 6km routes.\n\nwe'll ship your gear and layers to the finish. bring a headlamp. see you soon!"
 
 def validate_environment():
     """Validate the presence of required environment variables."""
-    Config.validate()
+    Config.validate() 
 
 def retrieve_contacts():
     """Retrieve unique phone numbers from Twilio messages."""
@@ -23,11 +23,8 @@ def retrieve_contacts():
             phone_number = message.to[2:]
             contacts.add(phone_number)
 
-    # print(f"Unique 10-digit phone numbers: {contacts}")
     print(f"Total number of unique 10-digit phone numbers: {len(contacts)}")
-    print(contacts)
-    return
-
+    return ['5104608255']
 
 def send_messages(contacts, target_number=None):
     """Send messages to the phone numbers using Twilio."""
@@ -35,7 +32,7 @@ def send_messages(contacts, target_number=None):
     failed_contacts = []
 
     if len(contacts) == 0 and target_number is None:
-        print("No contacts in db and no target number provided. Cancelling text blast.")
+        print("No contacts in database and no target number provided. Cancelling text blast.")
         return
 
     if target_number:
@@ -45,13 +42,13 @@ def send_messages(contacts, target_number=None):
                 to=target_number,
                 body=broadcast_text
             )
-            print(f"Successfully initiated text blast to {target_number}. twilio sid: {message.sid}")
+            print(f"Successfully initiated text blast to {target_number}. Twilio SID: {message.sid}")
         except Exception as e:
-            print(f"Failed to send text blast to {target_number}. twilio sid: {message.sid}")
+            print(f"Failed to send text blast to {target_number}.")
             failed_contacts.append((None, target_number))
     else:
         for contact in contacts:
-            if len(contact) == 2:
+            if isinstance(contact, tuple) and len(contact) == 2:
                 _, phone_number = contact
             else:
                 phone_number = contact
@@ -61,10 +58,10 @@ def send_messages(contacts, target_number=None):
                     to=phone_number,
                     body=broadcast_text
                 )
-                print(f"Successfully initiated text blast to {phone_number}. twilio sid: {message.sid}")
+                print(f"Successfully initiated text blast to {phone_number}. Twilio SID: {message.sid}")
             except Exception as e:
-                print(f"Failed to send text blast to {phone_number}. twilio sid: {message.sid}")
-                failed_contacts.append((phone_number))
+                print(f"Failed to send text blast to {phone_number}.")
+                failed_contacts.append(phone_number)
 
     return failed_contacts
 
@@ -85,15 +82,26 @@ def main():
             return
 
     if target_number:
+        # Confirmation prompt for a specific target number
+        confirmation = input("Type 'broadcast' to confirm sending message to the specified target number: ")
+        if confirmation.lower() != 'broadcast':
+            print("Broadcast canceled.")
+            return
         failed_contacts = send_messages([], target_number)
     else:
-        contracts = retrieve_contacts()
-        print(contracts)
-        # failed_contacts = send_messages(contacts)
+        contacts = retrieve_contacts()
+        print(contacts)
+
+        # Confirmation prompt for sending to all numbers
+        confirmation = input("Type 'broadcast' to confirm sending message to all contacts: ")
+        if confirmation.lower() != 'broadcast':
+            print("Broadcast canceled.")
+            return
+        failed_contacts = send_messages(contacts)
 
     if failed_contacts:
         print(f"The following {len(failed_contacts)} contacts failed to receive the message:")
-        for  phone_number in failed_contacts:
+        for phone_number in failed_contacts:
             print(f"Phone Number: {phone_number}")
         print("You can retry sending messages to the failed contacts.")
 
