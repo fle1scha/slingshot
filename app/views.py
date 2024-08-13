@@ -7,7 +7,7 @@ def index():
     if request.method == 'POST':
         input_phone_number = request.form['phone_number']
         input_name = request.form['name']
-        welcome_message = 'slingshot is a community adventure project.\n\n10km sutro trail run 08/08, 19:00. meet at 37.76141, -122.45195. bring a headlamp.'
+        welcome_message = 'slingshot is a community adventure project. we will text you soon.'
         success, error_message = broadcaster.send_message(input_name, input_phone_number, welcome_message)
 
         if success:
