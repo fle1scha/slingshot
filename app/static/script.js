@@ -92,5 +92,5 @@ window.onload = function() {
     setTimeout(function() {
         var rerunButton = document.getElementById('rerun-button');
         rerunButton.style.display = 'flex'; 
-    }, 5000);
+    }, 1500);
 };
