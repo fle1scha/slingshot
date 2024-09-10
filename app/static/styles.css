@@ -31,15 +31,38 @@ body {
     height: auto;
 }
 
-.form-title, .btn-primary, .form-small, .text-danger, .small-text {
+.form-title, .btn-primary, .form-medium, .form-small, .text-danger, .small-text {
     color: #ffffff;
     text-align: center;
+    font-family: helvetica;
 }
 
 .form-title {
-    font-size: 32px;
-    text-shadow: 0 0 2px #FF0000, 0 0 5px #0000FF;
-    margin-bottom: 8px;
+    font-size: 28px; 
+    color: #ffffff; 
+    text-align: center; 
+    margin-bottom: 1px; 
+    text-shadow: 0 0 1px #FF0000, 0 0 1px #0000FF;
+    line-height: 0.8; 
+    margin-block-start: 10px;
+}
+
+
+.form-medium {
+    font-size: 21px; 
+    color: #ffffff;
+    text-align: center; 
+    margin-bottom: 1px; 
+    text-shadow: 0 0 1px #FF0000, 0 0 1px #0000FF;
+    line-height: 0.8; 
+    margin-block-start: 10px;
+}
+
+.content-wrapper {
+    display: flex;              /* Enable flexbox layout */
+    flex-direction: column;     /* Stack child elements vertically */
+    align-items: center;        /* Center the items horizontally */
+    margin: 16px;              /* Optional: spacing around the wrapper */
 }
 
 .form-small, .text-danger {
@@ -50,7 +73,6 @@ body {
     text-shadow: 0 0 2px #FF0000, 0 0 5px #0000FF;
     margin-bottom: 10px;
 }
-
 .text-danger, .small-text {
     font-size: 14px;
 }
@@ -198,8 +220,6 @@ body {
 }
 
 .rerun-button, .unmute-button {
-    position: fixed;
-    z-index: 2;
     padding: 10px;
     color: white;
     border: none;
@@ -211,7 +231,4 @@ body {
     display: none;
     flex-direction: column;
     align-items: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
