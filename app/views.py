@@ -17,28 +17,6 @@ def index():
 
     return render_template('index.html')
 
-@app.route('/merch', methods=['GET', 'POST'])
-def merch_view():
-    if request.method == 'POST':
-        input_phone_number = request.form['phone_number']
-        input_name = request.form['name']
-        input_size = request.form['shirt_size']
-        tshirt_type = request.form['tshirt_type']
-        admin_number = Config.ADMIN_PHONE_NUMBER
-
-        order_message = f'slingshot.wtf order: {input_name}, {input_phone_number},  ordered a {input_size} {tshirt_type} shirt.'
-        success_admin, error_message_admin = broadcaster.send_message(input_name, admin_number, order_message, False)
-
-        if success_admin:
-            order_success_message = f'mailman here. got your order for a {input_size} {tshirt_type} shirt. will be in touch about delivery.\n\nslingshot.wtf'
-
-            success_user, error_message_user = broadcaster.send_message(input_name, input_phone_number, order_success_message, False)
-
-            if success_user:
-                return jsonify({'success': True})
-            else:
-                return jsonify({'error': True, 'error_message': error_message_user}), 400
-        else:
-            return jsonify({'error': True, 'error_message': error_message_admin}), 400
-    
-    return render_template('merch.html')
+@app.route('/fuzz', methods=['GET'])
+def fuzz_project():
+    return render_template('fuzz.html') 

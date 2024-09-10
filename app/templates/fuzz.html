@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slingshot: fuzz project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div id="background-video">
+        <img src="{{ url_for('static', filename='park_relay.gif') }}" alt="Background Image" class="video-background">
+    </div>
+
+    <div id="content-wrapper" class="content-wrapper">
+        <div id="static-text-box" class="content">
+                <h2 class="form-medium">slingshot is a community adventure project in san francisco and london.</h2>
+                <h2 class="form-medium">the project hosts bike races, trail runs and campouts.</h2>
+        </div>
+        <div id="rerun-button" class="rerun-button" onclick="showEventDetails()">
+            <button>run fast</button>
+        </div>
+    </div>
+
+    <div id="event-details-box" style="display: none;">
+        <div class="text-box card">
+            <h2 class="form-title">london road race</h2>
+            <h2 class="form-medium">7km, 12/09</h2>
+            <h2 class="form-medium">18:30</h2>
+            <h2 class="form-medium">
+                see you at the <a href="https://www.google.com/maps?q=51.46848,-0.22805" target="_blank">start.</a>
+            </h2>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='fuzz_script.js') }}"></script>
+</body>
+
+</html>
