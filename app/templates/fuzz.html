@@ -15,22 +15,28 @@
 
     <div id="content-wrapper" class="content-wrapper">
         <div id="static-text-box" class="content">
-                <h2 class="form-medium">slingshot is a community adventure project in san francisco and london.</h2>
-                <h2 class="form-medium">the project hosts bike races, trail runs and campouts.</h2>
+            <h2 class="form-medium">slingshot is a community adventure project in san francisco and london.</h2>
+            <h2 class="form-medium">the project hosts bike races, trail runs and campouts.</h2>
         </div>
         <div id="rerun-button" class="rerun-button" onclick="showEventDetails()">
             <button>run fast</button>
         </div>
     </div>
 
-    <div id="event-details-box" style="display: none;">
+    <div id="event-details-box" class="content-wrapper" style="display: none;">
         <div class="text-box card">
             <h2 class="form-title">london road race</h2>
             <h2 class="form-medium">7km, 12/09</h2>
             <h2 class="form-medium">18:30</h2>
-            <h2 class="form-medium">
-                see you at the <a href="https://www.google.com/maps?q=51.46848,-0.22805" target="_blank">start.</a>
-            </h2>
+            <h2 class="form-medium">see you at the start.</h2>
+        </div>
+
+        <!-- Strava Embed -->
+        <div style="margin-top: 20px;">
+            <div class="strava-embed-placeholder" data-embed-type="route" data-embed-id="3268147591131617806"
+                data-units="metric" data-style="dark" data-map-hash="11.91/51.47447/-0.22046" data-from-embed="true">
+            </div>
+            <script src="https://strava-embeds.com/embed.js"></script>
         </div>
     </div>
 
