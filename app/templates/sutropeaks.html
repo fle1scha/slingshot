@@ -49,10 +49,6 @@
                 padding: 10px;
                 font-size: 14px;
             }
-            button {
-                padding: 10px;
-                font-size: 14px;
-            }
         }
     </style>
 </head>
@@ -60,14 +56,14 @@
 <body>
 
     <div id="video-container">
-        <video id="myVideo" autoplay muted loop>
+        <video id="myVideo" autoplay muted loop playsinline>
             <source src="{{ url_for('static', filename='slingshot_sutro_peaks_v2.mp4') }}" type="video/mp4">
             Your browser does not support HTML5 video.
         </video>
         <div id="controls">
-            <button id="playPauseBtn" onclick="togglePlay()">pause</button>
-            <button id="muteBtn" onclick="toggleMute()">unmute</button>
-            <button onclick="location.href='/'">home</button>
+            <button id="playPauseBtn" onclick="togglePlay()">Pause</button>
+            <button id="muteBtn" onclick="toggleMute()">Unmute</button>
+            <button onclick="location.href='/'">Home</button>
         </div>
     </div>
 
@@ -78,17 +74,15 @@
 
         function togglePlay() {
             video.paused ? video.play() : video.pause();
-            playPauseBtn.innerText = video.paused ? "play" : "pause";
+            playPauseBtn.innerText = video.paused ? "Play" : "Pause";
         }
 
         function toggleMute() {
             video.muted = !video.muted;
-            muteBtn.innerText = video.muted ? "unmute" : "mute";
+            muteBtn.innerText = video.muted ? "Unmute" : "Mute";
         }
     </script>
 
 </body>
 
 </html>
-
-<source src="{{ url_for('static', filename='slingshot_sutro_peaks_v2.mp4') }}" type="video/mp4">

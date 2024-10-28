@@ -3,7 +3,7 @@ from twilio.rest import Client
 from config import Config
 import sys
 
-broadcast_text = "slingshot.wtf: devil's night 10km trail run; 10/30, 18:30. music and mischief in the woods. bring a friend and a headlamp. all paces."
+broadcast_text = "www.slingshot.wtf/run <- tape from our last run, check it out! 10km trail run wednesday @ 18:30. bring a headlamp, bring a friend. we'll hold onto your stuff. all paces, some prizes.\n\nstart and finish - google.com/maps?q=37.771,-122.4568."
 
 def validate_environment():
     """Validate the presence of required environment variables."""
@@ -14,18 +14,18 @@ def retrieve_contacts():
     twilio_client = Client(Config.TWILIO_ACCOUNT_SID, Config.TWILIO_AUTH_TOKEN)
     contacts = set()
 
-    # # Retrieve all phone numbers that have been sent messages
-    # messages = twilio_client.messages.list()
-    # for message in messages:
-    #     # Check if the phone number is in the format +1XXXXXXXXXX
-    #     if message.to.startswith('+1') and len(message.to) == 12:
-    #         # Remove the leading +1 to get the 10-digit number
-    #         phone_number = message.to[2:]
-    #         contacts.add(phone_number)
+    # Retrieve all phone numbers that have been sent messages
+    messages = twilio_client.messages.list()
+    for message in messages:
+        # Check if the phone number is in the format +1XXXXXXXXXX
+        if message.to.startswith('+1') and len(message.to) == 12:
+            # Remove the leading +1 to get the 10-digit number
+            phone_number = message.to[2:]
+            contacts.add(phone_number)
 
     print(contacts)
     print(f"Total number of unique 10-digit phone numbers: {len(contacts)}")
-    return 
+    return contacts
 
 def send_messages(contacts, target_number=None):
     """Send messages to the phone numbers using Twilio."""
