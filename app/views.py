@@ -17,6 +17,6 @@ def index():
 
     return render_template('index.html')
 
-@app.route('/video', methods=['GET'])
+@app.route('/sutropeaks', methods=['GET'])
 def video():
-    return render_template('video.html')
+    return render_template('sutropeaks.html')
