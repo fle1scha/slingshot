@@ -5,61 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slingshot: Strava</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
         body {
-            background: url('/static/madison-okay.png') no-repeat center center/cover;
-            height: 100vh;
             margin: 0;
+            overflow: hidden; /* Prevent scrolling */
+            background: url('/static/madison-okay.png') no-repeat center center/cover; /* Background image */
+        }
+
+        #content-container {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Full viewport height */
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
-            padding: 16px;
-            box-sizing: border-box;
-        }
-
-        .card {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 24px;
-            border-radius: 2px;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 400px; /* Limit the width of the card */
-        }
-
-        .form-title {
-            font-size: 28px; 
-            color: #000; 
-            text-align: center; 
-            margin-bottom: 20px; 
+            z-index: 1;
+            color: white; /* Text color for contrast */
         }
 
         .btn {
-            background: #36a2eb;
-            color: #ffffff;
+            background: rgb(239, 239, 239);
             padding: 10px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            text-align: center;
-            width: 100%;
-            max-width: 140px;
             margin-top: 20px;
         }
 
         .btn:hover {
-            background: #2e81c2;
+            background: rgba(54, 162, 235, 1);
+        }
+
+        @media (max-width: 300px) {
+            .btn {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="card">
-        <h1 class="form-title">oh, you're racing?</h1>
-        <a href="/login" class="btn">login with strava</a>
+    <div id="content-container">
+        <h3>racing?</h3>
+        <a href="/login" class="btn">register</a>
     </div>
 </body>
 

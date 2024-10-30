@@ -30,7 +30,7 @@ def index():
 def video():
     return render_template('sutropeaks.html')
 
-@app.route('/strava')
+@app.route('/register', methods=['GET'])
 def strava():
     return render_template('strava.html')
 
@@ -79,21 +79,18 @@ def dashboard():
         return jsonify({'error': 'Failed to fetch athlete data'}), 400
 
     athlete_data = response.json()
+    
+    segment_ids = [627849, 792156]  # Example array of segment IDs to check
 
     # Fetch and store segment times
-    print(athlete_data)
-    successful_inserts, errors = segments.fetch_and_store_segment_times(access_token, athlete_data)
-    
-    
-     # Mock data for testing
-    # Uncomment these lines to use mock data instead of fetching from the database for testing
-    participants = [
-        {'name': 'Alice', 'segment_time_1': '12:34', 'segment_time_2': '5:12', 'segment_time_3': '9:43'},
-        {'name': 'Bob', 'segment_time_1': '11:20', 'segment_time_2': '4:50', 'segment_time_3': '8:15'},
-        {'name': 'Charlie', 'segment_time_1': '13:07', 'segment_time_2': '6:02', 'segment_time_3': '10:25'},
-    ]
+    successful_inserts, errors = segments.fetch_and_store_segment_times(access_token, athlete_data, segment_ids)
 
-    # Get all participants with segment times to display in the dashboard
-    # participants = segments.get_all_segment_times()  # Fetch all participants and their segment times
+    # Log after trying to fetch and store
+    if errors:
+        print(f"Errors Encountered: {errors}")
+    else:
+        print(f"Successful Inserts: {successful_inserts}")
 
-    return render_template('dashboard.html', athlete_data=athlete_data, participants=participants)
+    athlete_efforts = segments.get_all_efforts_by_segment_ids(segment_ids)
+
+    return render_template('dashboard.html', athlete_data=athlete_data, athlete_efforts=athlete_efforts)

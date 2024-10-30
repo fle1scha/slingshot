@@ -4,74 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slingshot: Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>slinshot: run</title>
     <style>
         body {
-            background: url('/static/madison-okay.png') no-repeat center center/cover;
-            height: 100vh;
             margin: 0;
-            display: flex;
-            flex-direction: column; /* Allow column stacking */
-            justify-content: center;
-            align-items: center;
-            position: relative;
             padding: 16px;
             box-sizing: border-box;
+            background: url('/static/madison-okay.png') no-repeat center center/cover; /* Background image */
+            color: white; /* Text color */
         }
 
-        .card {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 24px;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 600px; /* Limit the width of the card */
-            margin-bottom: 20px; /* Add space below the card */
+        .container {
+            max-width: 800px; /* Limit width for better readability */
+            margin: 0 auto; /* Center the container */
+            padding: 20px; /* Padding inside the container */
+            border-radius: 8px; /* Rounded corners */
         }
 
-        .form-title {
-            font-size: 28px; 
-            color: #000; 
-            text-align: center; 
-            margin-bottom: 10px; /* Reduced margin */
+        h1 {
+            text-align: center; /* Center the main title */
         }
 
-        .btn {
-            background: #36a2eb;
-            color: #ffffff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
-            width: 100%;
-            max-width: 140px;
-            margin-top: 20px;
+        .welcome-message {
+            text-align: center; /* Center the welcome message */
+            margin-bottom: 20px; /* Space below welcome message */
         }
 
-        .btn:hover {
-            background: #2e81c2;
-        }
-
-        /* Table styles */
         table {
-            width: 100%;
-            margin: 20px 0; /* Space above and below the table */
+            width: 100%; /* Full width */
             border-collapse: collapse; /* Collapse borders */
+            margin-top: 20px; /* Space above the table */
         }
 
         th, td {
-            padding: 10px; /* Padding inside cells */
+            padding: 12px; /* Padding inside cells */
             text-align: center; /* Centered text */
             border: 1px solid #ccc; /* Border for cells */
         }
 
         th {
-            background-color: rgba(54, 162, 235, 0.8); /* Background for header */
-            color: white; /* Text color for header */
+            background-color: rgba(54, 162, 235, 0.8); /* Header background color */
+            color: white; /* Header text color */
         }
 
         tr:nth-child(even) {
@@ -81,39 +54,47 @@
         tr:hover {
             background-color: rgba(54, 162, 235, 0.5); /* Hover effect */
         }
+
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 14px; /* Smaller text on mobile */
+                padding: 8px; /* Reduced padding */
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div class="card">
-        <h1 class="form-title">Hello, {{ athlete_data.username }}</h1>
-        you're running a 10km with three marked segments: a climb, a sprint, and a technical section.
-        run one of the segments in the fastest time to win.
-        <a href="/strava" class="btn">Logout</a>
-    </div>
+    <div class="container">
+        <h1>{{ athlete_data.username }}, you biscuit</h1>
 
-    <div class="card">
+        <div class="strava-embed-placeholder" data-embed-type="route" data-embed-id="3286403468378297578" data-full-width="true" data-style="dark" data-map-hash="12.95/37.76998/-122.47587" data-from-embed="true"></div>
+        <script src="https://strava-embeds.com/embed.js"></script>
+
+        {% if athlete_efforts %}
         <table>
             <thead>
                 <tr>
-                    <th>user</th>
-                    <th>climb</th>
-                    <th>sprint</th>
-                    <th>tech</th>
+                    <th>Username</th>
+                    <th>User ID</th>
+                    <th>Segment ID</th>
+                    <th>Time Taken (seconds)</th>
                 </tr>
             </thead>
             <tbody>
-                {% for participant in participants %}
+                {% for effort in athlete_efforts %}
                 <tr>
-                    <td>{{ participant.name }}</td>
-                    <td>{{ participant.segment_time_1 }}</td>
-                    <td>{{ participant.segment_time_2 }}</td>
-                    <td>{{ participant.segment_time_3 }}</td>
+                    <td>{{ effort.username }}</td>
+                    <td>{{ effort.user_id }}</td>
+                    <td>{{ effort.segment_id }}</td>
+                    <td>{{ effort.time_taken }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <p>No segment efforts found for the specified segment IDs.</p>
+        {% endif %}
     </div>
 </body>
-
 </html>
