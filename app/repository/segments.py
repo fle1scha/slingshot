@@ -83,7 +83,7 @@ class Segments:
 
         # First check if the segment time already exists for the user
         if self.check_segment_exists(user_id, segment_id):
-            self.logger.error(f"Segment effort for user {user_id} and segment {segment_id} already exists.")
+            self.logger.error(f"Segment effort for user {username} and segment {segment_id} already exists.")
             return False, 'segment_exists'  # Segment time already exists
 
         INSERT_TIME_SQL = """

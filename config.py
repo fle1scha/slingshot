@@ -19,11 +19,20 @@ class Config:
     TWILIO_PHONE_NUMBER = os.getenv('TWILIO_PHONE_NUMBER')
     ADMIN_PHONE_NUMBER = os.getenv('ADMIN_PHONE_NUMBER')
 
+    STRAVA_CLIENT_ID = os.getenv('STRAVA_CLIENT_ID')
+    STRAVA_CLIENT_SECRET = os.getenv('STRAVA_CLIENT_SECRET')
+
+    FLASK_SECRET_KEY = os.getenv('FLASK_SECRET_KEY')
+    HOST = os.getenv('HOST', 'http://localhost:5000')
+
     @classmethod
     def validate(cls):
-        mandatory_envvars = ['MYSQL_HOST', 'MYSQL_USER', 'MYSQL_PASSWORD', 'DB_NAME', 
-                          'DB_USER', 'DB_PASSWORD', 'TWILIO_ACCOUNT_SID', 
-                          'TWILIO_AUTH_TOKEN', 'TWILIO_PHONE_NUMBER', 'ADMIN_PHONE_NUMBER']
+        mandatory_envvars = [
+            'MYSQL_HOST', 'MYSQL_USER', 'MYSQL_PASSWORD', 'DB_NAME', 
+            'DB_USER', 'DB_PASSWORD', 'TWILIO_ACCOUNT_SID', 
+            'TWILIO_AUTH_TOKEN', 'TWILIO_PHONE_NUMBER', 'ADMIN_PHONE_NUMBER',
+            'STRAVA_CLIENT_ID', 'STRAVA_CLIENT_SECRET', 'FLASK_SECRET_KEY', 'HOST'
+        ]
 
         for var_name in mandatory_envvars:
             if not getattr(cls, var_name):

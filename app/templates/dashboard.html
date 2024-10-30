@@ -4,97 +4,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>slinshot: run</title>
+    <title>slingshot: dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
         body {
+            background: url('/static/madison-okay.png') no-repeat center center/cover;
+            min-height: 100vh; /* Ensure the body takes full height */
             margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
             padding: 16px;
             box-sizing: border-box;
-            background: url('/static/madison-okay.png') no-repeat center center/cover; /* Background image */
-            color: white; /* Text color */
+            position: relative;
         }
 
-        .container {
-            max-width: 800px; /* Limit width for better readability */
-            margin: 0 auto; /* Center the container */
-            padding: 20px; /* Padding inside the container */
-            border-radius: 8px; /* Rounded corners */
+        .logout {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(245, 245, 245, 0.8);
+            color: rgb(0, 0, 0);
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 10;
+            font-size: small;
         }
 
-        h1 {
-            text-align: center; /* Center the main title */
+        .card-greeting {
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 600px;
+            margin-top: 40px;
         }
 
-        .welcome-message {
-            text-align: center; /* Center the welcome message */
-            margin-bottom: 20px; /* Space below welcome message */
+        .card {
+            padding: 16px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 600px;
+            margin-top: 10px;
         }
 
+        .form-title {
+            font-size: 24px;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .message {
+            margin-top: 10px;
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .btn {
+            background: #36a2eb;
+            color: #ffffff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            max-width: 140px;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: #2e81c2;
+        }
+
+        /* Table styles */
         table {
-            width: 100%; /* Full width */
-            border-collapse: collapse; /* Collapse borders */
-            margin-top: 20px; /* Space above the table */
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
         }
 
-        th, td {
-            padding: 12px; /* Padding inside cells */
-            text-align: center; /* Centered text */
-            border: 1px solid #ccc; /* Border for cells */
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ccc;
         }
 
         th {
-            background-color: rgba(54, 162, 235, 0.8); /* Header background color */
-            color: white; /* Header text color */
+            background-color: rgba(235, 235, 235, 0.8);
+            color: rgb(0, 0, 0);
         }
 
-        tr:nth-child(even) {
-            background-color: rgba(54, 162, 235, 0.3); /* Alternate row color */
+        tr {
+            background-color: rgba(200, 250, 235, 0.3);
+            color: #000000;
         }
 
         tr:hover {
-            background-color: rgba(54, 162, 235, 0.5); /* Hover effect */
+            background-color: rgba(54, 162, 235, 0.5);
         }
 
+        /* Responsive Styles */
         @media (max-width: 600px) {
-            th, td {
-                font-size: 14px; /* Smaller text on mobile */
-                padding: 8px; /* Reduced padding */
+            .card {
+                padding: 12px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            .form-title {
+                font-size: 20px;
+            }
+
+            th,
+            td {
+                font-size: 14px;
+                padding: 6px;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>{{ athlete_data.username }}, you biscuit</h1>
+    <a href="/register" class="logout">sign out</a>
 
-        <div class="strava-embed-placeholder" data-embed-type="route" data-embed-id="3286403468378297578" data-full-width="true" data-style="dark" data-map-hash="12.95/37.76998/-122.47587" data-from-embed="true"></div>
-        <script src="https://strava-embeds.com/embed.js"></script>
+    <div class="card-greeting">
+        <h3 class="form-title">hello, {{ athlete_data.username }}</h3>
+        <div class="message">You're running a 10km course with three marked segments.
+            Run one of the segments in the fastest time to win. <br><br>
+            <a href="https://www.strava.com/segments/17115468">JDB's secret trail</a><br>
+            <a href="https://www.strava.com/segments/792156">Strawberry Hill</a><br>
+            <a href="https://www.strava.com/segments/9823103">Frisbee Golf CrossOver</a><br>
+            <a href="https://www.strava.com/segments/1166988">Aids Memorial Grove</a>
+            </a>
+        </div>
+    </div>
 
-        {% if athlete_efforts %}
+    <!-- Segment tables -->
+    {% for segment_title, segment_data in segment_efforts.items() %}
+    <div class="card">
+        <h3 class="form-title">{{ segment_title }}</h3>
         <table>
             <thead>
                 <tr>
+                    <th>Rank</th>
                     <th>Username</th>
                     <th>User ID</th>
-                    <th>Segment ID</th>
                     <th>Time Taken (seconds)</th>
                 </tr>
             </thead>
             <tbody>
-                {% for effort in athlete_efforts %}
+                {% for effort in segment_data %}
                 <tr>
+                    <td>{{ loop.index }}</td>
                     <td>{{ effort.username }}</td>
                     <td>{{ effort.user_id }}</td>
-                    <td>{{ effort.segment_id }}</td>
-                    <td>{{ effort.time_taken }}</td>
+                    <td>{{ effort.time }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        {% else %}
-        <p>No segment efforts found for the specified segment IDs.</p>
-        {% endif %}
     </div>
+    {% endfor %}
 </body>
+
 </html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slingshot: Strava</title>
+    <title>slingshot: run</title>
     <style>
         body {
             margin: 0;
@@ -22,6 +22,7 @@
             align-items: center;
             z-index: 1;
             color: white; /* Text color for contrast */
+            text-align: center; /* Center text */
         }
 
         .btn {
@@ -30,7 +31,8 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 10px;
+            margin-bottom: 20px;
         }
 
         .btn:hover {
@@ -48,9 +50,13 @@
 
 <body>
     <div id="content-container">
-        <h3>racing?</h3>
+        <h3>running?</h3>
         <a href="/login" class="btn">register</a>
+        
+        <!-- Strava Route Embed -->
+        <div class="strava-embed-placeholder" data-embed-type="route" data-embed-id="3286403468378297578" data-full-width="true" data-style="dark" data-map-hash="12.95/37.76998/-122.47587" data-from-embed="true"></div><script src="https://strava-embeds.com/embed.js"></script>
     </div>
+
 </body>
 
 </html>
