@@ -84,7 +84,8 @@ def dashboard():
     else:
         print(f"Successful Inserts: {successful_inserts}")
 
-    segment_efforts = segments.get_all_efforts_by_segment_ids(segment_ids)
+    event_date = "2024-10-30"
+    segment_efforts = segments.get_all_efforts_by_segment_ids(segment_ids, event_date)
     print(segment_efforts)
     return render_template('dashboard.html', athlete_data=athlete_data, segment_efforts=segment_efforts)
 

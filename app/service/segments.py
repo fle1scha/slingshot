@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime, timezone
 
 class SegmentService:
     def __init__(self, segments_repository):
@@ -13,18 +14,13 @@ class SegmentService:
         errors = []
 
         for segment_id in segment_ids:
-            # Step: Check if the segment already exists for this athlete
-            if self.segments_repository.check_segment_exists(user_id, segment_id):
-                errors.append(f"Segment effort for user {username} and segment {segment_id} already exists. Skipping API call.")
-                continue  # Skip this segment since it already exists
-
             try:
                 # Fetch individual segment efforts using segment_id
                 response = requests.get(
-                f"https://www.strava.com/api/v3/segment_efforts",
+                    f"https://www.strava.com/api/v3/segment_efforts",
                     params={
                         'segment_id': segment_id,
-                        'start_date_local': '2024-01-01T00:00:00Z',
+                        'start_date_local': '2024-10-15T00:00:00Z',
                         'end_date_local': '2024-10-30T00:00:00Z'
                     },
                     headers={'Authorization': f'Bearer {access_token}'}
@@ -40,19 +36,16 @@ class SegmentService:
                     # Debugging: Print the raw data received from API
                     print("Segment Data Retrieved:", segment_data)
 
-                    # Updated parsing based on the actual response structure
                     if isinstance(segment_data, list):
                         for effort in segment_data:
-                            # Parse the details from the effort
                             time_taken = effort.get('elapsed_time')  # Time in seconds
-                            segment_name = effort['segment']['name']  # Use the segment name from effort
+                            segment_name = effort['segment']['name']
                             date_of_effort = effort['start_date']  # Date of the effort in ISO format
 
-                            # Insert the segment time into the database
                             success, error = self.segments_repository.insert_segment_time(username, user_id, segment_id, time_taken, date_of_effort)
                             if success:
                                 successful_inserts.append({
-                                    'segment_name': segment_name,  # Segment name
+                                    'segment_name': segment_name,
                                     'time_taken': time_taken
                                 })
                                 print(f"Successfully inserted time for segment: {segment_name}, Time Taken: {time_taken} seconds")
@@ -69,27 +62,34 @@ class SegmentService:
             except Exception as e:
                 errors.append(f"General error fetching segment {segment_id}: {str(e)}")
 
-        # Debugging: Log successful inserts and errors encountered
         print(f"Successful Inserts: {successful_inserts}")
         print(f"Errors Encountered: {errors}")
 
         return successful_inserts, errors
 
-    def get_all_efforts_by_segment_ids(self, segment_ids):
-        """Retrieve and format all segment efforts for specified segment IDs."""
+    def get_all_efforts_by_segment_ids(self, segment_ids, filter_date=None):
+        """Retrieve and format all segment efforts for specified segment IDs filtered by date."""
         segment_efforts = {}
 
+        # Default to today if no date is provided
+        if filter_date is None:
+            filter_date = datetime.now(timezone.utc).date()
+        else:
+            # Ensure filter_date is a date object from string if necessary
+            if isinstance(filter_date, str):
+                filter_date = datetime.fromisoformat(filter_date).date()
+
         for segment_id in segment_ids:
-            efforts = self.segments_repository.get_all_times_by_segment_id(segment_id)
-            
+            efforts = self.segments_repository.get_all_times_by_segment_id(segment_id, filter_date)
+            print(f"Efforts for Segment ID {segment_id}: {efforts}")  # Debugging output
+
             if efforts:
-                # Assume segment_id can be tied to a descriptive segment name (e.g., 'Climb', 'Sprint')
-                segment_name = self._get_segment_name(segment_id)  # This should be a method that retrieves the segment name
+                segment_name = self._get_segment_name(segment_id)
                 if segment_name not in segment_efforts:
                     segment_efforts[segment_name] = []
 
+                # Directly append the relevant efforts
                 for effort in efforts:
-                    # Create a dictionary for each effort
                     segment_efforts[segment_name].append({
                         'username': effort['username'],
                         'user_id': effort['user_id'],
@@ -105,8 +105,6 @@ class SegmentService:
 
     def _get_segment_name(self, segment_id):
         """Retrieve segment name based on segment ID."""
-        # Here you would implement logic to get the segment name from the database or a predefined list.
-        # For example:
         segment_names = {
             17115468: "JDB's secret trail",
             792156: 'Strawberry Hill from incline start',

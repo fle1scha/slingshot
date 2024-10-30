@@ -56,11 +56,11 @@ class Segments:
             self.logger.error(f"Error with SELECT query: {e}")
             raise
 
-    def check_segment_exists(self, user_id, segment_id):
+    def check_segment_exists(self, user_id, segment_id, date_of_effort):
         """Check if a specific segment effort exists for the user."""
-        SELECT_SEGMENT_SQL = "SELECT * FROM segments WHERE user_id = %s AND segment_id = %s;"
+        SELECT_SEGMENT_SQL = "SELECT * FROM segments WHERE user_id = %s AND segment_id = %s AND date_of_effort = %s;"
         try:
-            result = self.run_select_query(SELECT_SEGMENT_SQL, (user_id, segment_id))
+            result = self.run_select_query(SELECT_SEGMENT_SQL, (user_id, segment_id, date_of_effort))
             return len(result) > 0  # Return True if segment effort exists
         except pymysql.MySQLError as e:
             self.logger.error(f"Error checking if segment exists for user {user_id}: {e}")
@@ -82,8 +82,8 @@ class Segments:
             return False, 'invalid_date_format'  # Handle date format issue early
 
         # First check if the segment time already exists for the user
-        if self.check_segment_exists(user_id, segment_id):
-            self.logger.error(f"Segment effort for user {username} and segment {segment_id} already exists.")
+        if self.check_segment_exists(user_id, segment_id, date_of_effort):
+            self.logger.error(f"Segment effort for user {username} and segment {segment_id} on date {date_of_effort} already exists.")
             return False, 'segment_exists'  # Segment time already exists
 
         INSERT_TIME_SQL = """
@@ -116,16 +116,30 @@ class Segments:
             self.logger.error(f"Error fetching segment times for user {user_id}: {e}")
             return None  # Failure
 
-    def get_all_times_by_segment_id(self, segment_id):
-        """Retrieve all segment times for a given segment_id."""
+    def get_all_times_by_segment_id(self, segment_id, filter_date=None):
+        """Retrieve all segment times for a given segment_id with optional date filtering."""
+        
+        # Base SQL query to fetch segment times
         SELECT_SEGMENT_TIMES_SQL = """
         SELECT username, user_id, segment_id, time_taken, date_of_effort 
         FROM segments 
-        WHERE segment_id = %s 
-        ORDER BY date_of_effort DESC;
+        WHERE segment_id = %s
         """
+        
+        # Include date filtering if a filter_date is provided
+        if filter_date:
+            SELECT_SEGMENT_TIMES_SQL += " AND DATE(date_of_effort) = %s"  # Using DATE to extract the date part
+        
+        SELECT_SEGMENT_TIMES_SQL += " ORDER BY time_taken DESC;"
+
         try:
-            raw_results = self.run_select_query(SELECT_SEGMENT_TIMES_SQL, (segment_id,))
+            # Create parameters for the query
+            params = (segment_id,)
+            if filter_date:
+                params += (filter_date,)  # Add filter_date to the query parameters
+                
+            # Execute the query and retrieve results
+            raw_results = self.run_select_query(SELECT_SEGMENT_TIMES_SQL, params)
             
             # Format results into a list of dictionaries for easier access
             formatted_results = [
@@ -139,6 +153,8 @@ class Segments:
                 for row in raw_results
             ]
             
+            print("formatted results")
+            print(formatted_results)
             return formatted_results
         except pymysql.MySQLError as e:
             self.logger.error(f"Error fetching segment times for segment {segment_id}: {e}")

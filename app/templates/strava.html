@@ -8,21 +8,26 @@
     <style>
         body {
             margin: 0;
-            overflow: hidden; /* Prevent scrolling */
-            background: url('/static/madison-okay.png') no-repeat center center/cover; /* Background image */
+            overflow: hidden;
+            /* Prevent scrolling */
+            background: url('/static/madison-okay.png') no-repeat center center/cover;
+            /* Background image */
         }
 
         #content-container {
             position: relative;
             width: 100%;
-            height: 100vh; /* Full viewport height */
+            height: 100vh;
+            /* Full viewport height */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 1;
-            color: white; /* Text color for contrast */
-            text-align: center; /* Center text */
+            color: white;
+            /* Text color for contrast */
+            text-align: center;
+            /* Center text */
         }
 
         .btn {
@@ -33,28 +38,73 @@
             cursor: pointer;
             margin-top: 10px;
             margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+            /* Use a common font for consistency */
+            font-size: 16px;
+            /* Adjust font size */
+            display: inline-flex;
+            align-items: center;
         }
 
         .btn:hover {
             background: rgba(54, 162, 235, 1);
         }
 
+        .message {
+            margin: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+        }
+
         @media (max-width: 300px) {
-            .btn {
+
+            .btn,
+            .strava-btn {
                 padding: 8px 12px;
                 font-size: 14px;
             }
+        }
+
+        .form-title {
+            font-size: 28px;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 1px;
+            text-shadow: 0 0 1px #FF0000, 0 0 1px #0000FF;
+            line-height: 0.8;
+            margin-block-start: 10px;
+            margin-bottom: 10px;
+            margin-top: 50px;
+
         }
     </style>
 </head>
 
 <body>
     <div id="content-container">
-        <h3>running?</h3>
-        <a href="/login" class="btn">register</a>
+        <h3 class="form-title">devil's night run</h3>
+
+        <!-- <a href="/login">
+            <img src="/static/strava-logo.png" alt="Strava Logo" width="150px" class="strava-btn" />
+        </a>
+
+        slingshot.wtf is being rate-limited by strava.<br>
+            race results will be available soon.
         
-        <!-- Strava Route Embed -->
-        <div class="strava-embed-placeholder" data-embed-type="route" data-embed-id="3286403468378297578" data-full-width="true" data-style="dark" data-map-hash="12.95/37.76998/-122.47587" data-from-embed="true"></div><script src="https://strava-embeds.com/embed.js"></script>
+ -->
+
+        <div class="message">You're running a 10km course with four marked segments.
+            Run one of the segments in the fastest time to win. <br><br>
+            <a href="https://www.strava.com/segments/17115468">JDB's Secret Trail</a><br>
+            <a href="https://www.strava.com/segments/9823103">Frisbee Golf CrossOver</a><br>
+            <a href="https://www.strava.com/segments/792156">Strawberry Hill</a><br>
+            <a href="https://www.strava.com/segments/1166988">Aids Memorial Grove</a>
+        </div>
+
+        <div class="strava-embed-placeholder" data-embed-type="route" data-embed-id="3286403468378297578"
+            data-full-width="true" data-style="dark" data-map-hash="12.95/37.76998/-122.47587" data-from-embed="true">
+        </div>
+        <script src="https://strava-embeds.com/embed.js"></script>
     </div>
 
 </body>
