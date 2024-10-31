@@ -16,9 +16,9 @@ def index():
 # def video():
 #     return render_template('sutropeaks.html')
 
-# @app.route('/race', methods=['GET'])
-# def strava():
-#     return render_template('strava.html')
+@app.route('/race', methods=['GET'])
+def strava():
+    return render_template('strava.html')
 
 @app.route('/login', methods=['GET'])
 def login():
@@ -84,7 +84,7 @@ def dashboard():
     else:
         print(f"Successful Inserts: {successful_inserts}")
 
-    event_date = "2024-10-15"
+    event_date = "2024-10-31"
     segment_efforts = segments.get_all_efforts_by_segment_ids(segment_ids, event_date)
     print(segment_efforts)
     return render_template('dashboard.html', athlete_data=athlete_data, segment_efforts=segment_efforts)
@@ -104,5 +104,7 @@ def get_athlete_data(access_token):
     """Fetch athlete data from Strava API."""
     response = requests.get("https://www.strava.com/api/v3/athlete", headers={'Authorization': f'Bearer {access_token}'})
     if response.status_code == 200:
-        return response.json()
+        athlete_data = response.json()
+        print(f"Athlete data: {athlete_data}")
+        return athlete_data
     return None

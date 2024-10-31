@@ -7,9 +7,7 @@ class SegmentService:
 
     def fetch_and_store_segment_times(self, access_token, athlete_data, segment_ids):
         """Fetch segment times for a given athlete and store them into the repository."""
-        username = athlete_data['username']
         user_id = athlete_data['id']
-
         successful_inserts = []
         errors = []
 
@@ -20,27 +18,26 @@ class SegmentService:
                     f"https://www.strava.com/api/v3/segment_efforts",
                     params={
                         'segment_id': segment_id,
-                        'start_date_local': '2024-10-15T00:00:00Z',
-                        'end_date_local': '2024-10-30T00:00:00Z'
+                        'start_date_local': '2024-10-29T00:00:00Z',
+                        'end_date_local': '2024-10-31T00:00:00Z'
                     },
                     headers={'Authorization': f'Bearer {access_token}'}
                 )
 
-                # Debugging: Log the API call info
-                print(f"Fetching segment efforts for Segment ID: {segment_id}")
-                print(f"Response Status Code: {response.status_code}")
 
                 if response.status_code == 200:
                     segment_data = response.json()
                     
                     # Debugging: Print the raw data received from API
-                    print("Segment Data Retrieved:", segment_data)
 
                     if isinstance(segment_data, list):
                         for effort in segment_data:
                             time_taken = effort.get('elapsed_time')  # Time in seconds
                             segment_name = effort['segment']['name']
                             date_of_effort = effort['start_date']  # Date of the effort in ISO format
+                            
+                            # Get username from athlete_data or from segment_data if None
+                            username = athlete_data['username'] if athlete_data['username'] is not None else athlete_data['firstname']
 
                             success, error = self.segments_repository.insert_segment_time(username, user_id, segment_id, time_taken, date_of_effort)
                             if success:
@@ -100,16 +97,14 @@ class SegmentService:
         for segment_name in segment_efforts:
             segment_efforts[segment_name].sort(key=lambda x: x['time'])  # Sort by time taken
 
-        print(f"Segment Efforts: {segment_efforts}")  # Debugging output
         return segment_efforts
 
     def _get_segment_name(self, segment_id):
         """Retrieve segment name based on segment ID."""
         segment_names = {
-            17115468: "JDB's secret trail",
-            792156: 'Strawberry Hill from incline start',
-            9823103: 'Frisbee Golf CrossOver > JFK',
-            1166988: 'Trail by the Aids Memorial Grove EB',
-            627849: 'test: you should have run this',
+            17115468: "JDB",
+            792156: 'Strawberry Hill',
+            9823103: 'Frisbee Golf CrossOver',
+            1166988: 'Aids Memorial Grove'        
         }
         return segment_names.get(segment_id, 'Unknown Segment')

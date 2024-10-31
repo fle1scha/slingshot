@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
         body {
-            background: url('/static/madison-okay.png') no-repeat center center/cover;
+            background: url('/static/madison-okay.png') repeat center center/cover;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -16,16 +16,15 @@
             padding: 16px;
             box-sizing: border-box;
             position: relative;
-            min-height: 100vh; /* Minimum height to cover the viewport */
-            overflow: auto; /* Allow the entire body to scroll */
+            min-height: 100vh; 
+            overflow: auto; 
         }
 
-        /* Position the powered by logo */
         .powered-by {
             position: absolute;
             top: 10px;
             left: 10px;
-            z-index: 10; /* Ensure it appears above other content */
+            z-index: 10; 
             width: 100px;
         }
 
@@ -52,7 +51,7 @@
             align-items: center;
             width: 90%;
             max-width: 600px;
-            margin-top: 40px;
+            margin-top: 120px; 
         }
 
         .card {
@@ -67,10 +66,11 @@
         }
 
         .form-title {
-            font-size: 24px;
+            font-size: 20px;
             color: #ffffff;
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
+            margin-top: 5px;
         }
 
         .message {
@@ -103,22 +103,23 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
+            font-size: small;
         }
 
         th,
         td {
-            padding: 8px;
+            padding: 5px; 
             text-align: center;
             border: 1px solid #ccc;
         }
 
         th {
-            background-color: rgba(235, 235, 235, 0.8);
+            background-color: rgba(200, 250, 235, 0.3);
             color: rgb(0, 0, 0);
         }
 
         tr {
-            background-color: rgba(200, 250, 235, 0.3);
+            background-color: rgba(235, 235, 235, 0.8);
             color: #000000;
         }
 
@@ -140,15 +141,15 @@
 
             th,
             td {
-                font-size: 14px;
-                padding: 6px;
+                font-size: 12px;  
+                padding: 4px;     
             }
         }
     </style>
 </head>
 
 <body>
-    <img src="/static/powered-by-strava.png" alt="Powered by Strava" class="powered-by"> <!-- Add Strava logo -->
+    <img src="/static/powered-by-strava.png" alt="Powered by Strava" class="powered-by"> 
 
     <a href="/race" class="logout">sign out</a>
 
@@ -163,7 +164,6 @@
         </div>
     </div>
 
-    <!-- Segment tables -->
     {% for segment_title, segment_data in segment_efforts.items() %}
     <div class="card">
         <h3 class="form-title">{{ segment_title }}</h3>

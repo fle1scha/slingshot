@@ -78,7 +78,6 @@
         }
 
         @media (max-width: 300px) {
-
             /* Responsive adjustments for smaller screens */
             .strava-embed-placeholder {
                 max-width: 90%;
@@ -108,20 +107,11 @@
 
 <body>
     <div id="content-container">
-        <div class="strava-embed-placeholder" data-embed-type="route" data-embed-id="3286403468378297578"
-            data-full-width="true" data-style="dark" data-map-hash="12.95/37.76998/-122.47587" data-from-embed="true">
-        </div>
-        <script src="https://strava-embeds.com/embed.js"></script>
-
-        <div class="message">Tonight is a 10km course with four marked segments.
-            Run one of the segments in the fastest time to win. <br><br>
-            <a class="list" href="https://www.strava.com/segments/17115468">1. JDB's Secret Trail</a><br>
-            <a class="list" href="https://www.strava.com/segments/9823103">2. Frisbee Golf CrossOver</a><br>
-            <a class="list" href="https://www.strava.com/segments/792156">3. Strawberry Hill</a><br>
-            <a class="list" href="https://www.strava.com/segments/1166988">4. Aids Memorial Grove</a><br>
-            <div class="list">Race results will be available here once Strava removes our rate limit.
-            </div>
-        </div>
+        <h5 class="form-title">raced?</h5>
+        <a href="/login">
+            <img src="{{ url_for('static', filename='strava-logo.png') }}" alt="login" width="150px" />
+        </a>
+        
     </div>
 
 </body>
