@@ -28,6 +28,19 @@
             /* Text color for contrast */
             text-align: center;
             /* Center text */
+            padding: 20px;
+            /* Add padding to avoid touching edges */
+            box-sizing: border-box;
+            /* Ensure padding is included in width */
+        }
+
+        .strava-embed-placeholder {
+            max-width: 90%;
+            /* Maximum width of 90% for small screens */
+            height: auto;
+            /* Keep height auto to avoid cropping horizontally */
+            aspect-ratio: 16 / 9;
+            /* Maintain aspect ratio */
         }
 
         .btn {
@@ -54,9 +67,23 @@
             margin: 20px;
             font-family: Arial, Helvetica, sans-serif;
             font-weight: bold;
+            color: #ffffff;
+        }
+
+        .list {
+            margin: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #ffffff;
+            font-size: smaller;
         }
 
         @media (max-width: 300px) {
+
+            /* Responsive adjustments for smaller screens */
+            .strava-embed-placeholder {
+                max-width: 90%;
+                /* Adjust to allow full width on very small screens */
+            }
 
             .btn,
             .strava-btn {
@@ -75,36 +102,26 @@
             margin-block-start: 10px;
             margin-bottom: 10px;
             margin-top: 50px;
-
         }
     </style>
 </head>
 
 <body>
     <div id="content-container">
-        <h3 class="form-title">devil's night run</h3>
-
-        <!-- <a href="/login">
-            <img src="/static/strava-logo.png" alt="Strava Logo" width="150px" class="strava-btn" />
-        </a>
-
-        slingshot.wtf is being rate-limited by strava.<br>
-            race results will be available soon.
-        
- -->
-
-        <div class="message">You're running a 10km course with four marked segments.
-            Run one of the segments in the fastest time to win. <br><br>
-            <a href="https://www.strava.com/segments/17115468">JDB's Secret Trail</a><br>
-            <a href="https://www.strava.com/segments/9823103">Frisbee Golf CrossOver</a><br>
-            <a href="https://www.strava.com/segments/792156">Strawberry Hill</a><br>
-            <a href="https://www.strava.com/segments/1166988">Aids Memorial Grove</a>
-        </div>
-
         <div class="strava-embed-placeholder" data-embed-type="route" data-embed-id="3286403468378297578"
             data-full-width="true" data-style="dark" data-map-hash="12.95/37.76998/-122.47587" data-from-embed="true">
         </div>
         <script src="https://strava-embeds.com/embed.js"></script>
+
+        <div class="message">Tonight is a 10km course with four marked segments.
+            Run one of the segments in the fastest time to win. <br><br>
+            <a class="list" href="https://www.strava.com/segments/17115468">1. JDB's Secret Trail</a><br>
+            <a class="list" href="https://www.strava.com/segments/9823103">2. Frisbee Golf CrossOver</a><br>
+            <a class="list" href="https://www.strava.com/segments/792156">3. Strawberry Hill</a><br>
+            <a class="list" href="https://www.strava.com/segments/1166988">4. Aids Memorial Grove</a><br>
+            <div class="list">Race results will be available here once Strava removes our rate limit.
+            </div>
+        </div>
     </div>
 
 </body>

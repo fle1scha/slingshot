@@ -9,15 +9,15 @@
     <style>
         body {
             background: url('/static/madison-okay.png') no-repeat center center/cover;
-            min-height: 100vh; /* Ensure the body takes full height */
             margin: 0;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
             align-items: center;
             padding: 16px;
             box-sizing: border-box;
             position: relative;
+            min-height: 100vh; /* Minimum height to cover the viewport */
+            overflow: auto; /* Allow the entire body to scroll */
         }
 
         /* Position the powered by logo */
@@ -150,7 +150,7 @@
 <body>
     <img src="/static/powered-by-strava.png" alt="Powered by Strava" class="powered-by"> <!-- Add Strava logo -->
 
-    <a href="/register" class="logout">sign out</a>
+    <a href="/race" class="logout">sign out</a>
 
     <div class="card-greeting">
         <h3 class="form-title">hello, {{ athlete_data.username }}</h3>

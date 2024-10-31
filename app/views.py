@@ -12,13 +12,13 @@ def index():
         return handle_index_post(request)
     return render_template('index.html')
 
-@app.route('/run', methods=['GET'])
-def video():
-    return render_template('sutropeaks.html')
+# @app.route('/run', methods=['GET'])
+# def video():
+#     return render_template('sutropeaks.html')
 
-@app.route('/register', methods=['GET'])
-def strava():
-    return render_template('strava.html')
+# @app.route('/race', methods=['GET'])
+# def strava():
+#     return render_template('strava.html')
 
 @app.route('/login', methods=['GET'])
 def login():
@@ -84,7 +84,7 @@ def dashboard():
     else:
         print(f"Successful Inserts: {successful_inserts}")
 
-    event_date = "2024-10-30"
+    event_date = "2024-10-15"
     segment_efforts = segments.get_all_efforts_by_segment_ids(segment_ids, event_date)
     print(segment_efforts)
     return render_template('dashboard.html', athlete_data=athlete_data, segment_efforts=segment_efforts)
@@ -92,7 +92,7 @@ def dashboard():
 def handle_index_post(request):
     input_phone_number = request.form['phone_number']
     input_name = request.form['name']
-    welcome_message = "www.slingshot.wtf/run <- tape from our last run, check it out! 10km trail run wednesday @ 18:30. bring a headlamp, make a friend. all paces, some prizes. we'll hold onto your stuff.\n\nstart and finish - google.com/maps?q=37.771,-122.4568."
+    welcome_message = "slingshot is a community adventure project. we'll text you soon."
     success, error_message = broadcaster.send_message(input_name, input_phone_number, welcome_message)
 
     if success:

@@ -6,6 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>slingshot</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Add some styles for the button */
+        .racing-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            border: none;
+            border-radius: 2px;
+        }
+
+        .racing-button:hover {
+            background-color: #0056b3;
+            /* Darker shade on hover */
+        }
+    </style>
 </head>
 
 <body>
@@ -18,14 +34,15 @@
     </div>
 
     <div id="sign-up-form" class="content">
-        <div class="logo-container" id ="logo">
+        <div class="logo-container" id="logo">
             <img src="{{ url_for('static', filename='dragon_wont_sit_still_logo.png') }}" alt="Logo" class="logo">
         </div>
         <div class="card">
             <div id="form-group">
                 <form class="form-container" method="POST" id="form" novalidate>
                     <input type="text" class="form-input" id="name" name="name" placeholder="name">
-                    <input type="tel" class="form-input" id="phone_number" name="phone_number" placeholder="phone number">
+                    <input type="tel" class="form-input" id="phone_number" name="phone_number"
+                        placeholder="phone number">
                     <button type="submit" class="btn btn-primary">submit</button>
                 </form>
             </div>
