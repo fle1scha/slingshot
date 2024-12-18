@@ -12,9 +12,9 @@ def index():
         return handle_index_post(request)
     return render_template('index.html')
 
-# @app.route('/run', methods=['GET'])
-# def video():
-#     return render_template('sutropeaks.html')
+@app.route('/rrrrr', methods=['GET'])
+def video():
+    return render_template('sutropeaks.html')
 
 @app.route('/race', methods=['GET'])
 def strava():
@@ -68,12 +68,7 @@ def dashboard():
     if not athlete_data:
         return jsonify({'error': 'Failed to fetch athlete data'}), 400
 
-    segment_ids = [17115468, 792156, 9823103, 1166988, 627849]
-    # 627849 - test
-    # https://www.strava.com/segments/17115468
-    # https://www.strava.com/segments/792156
-    # https://www.strava.com/segments/9823103
-    # https://www.strava.com/segments/1166988
+    segment_ids = [26592018, 1750852, 968449, 996627]
 
     # Fetch and store segment times
     successful_inserts, errors = segments.fetch_and_store_segment_times(access_token, athlete_data, segment_ids)
@@ -84,7 +79,7 @@ def dashboard():
     else:
         print(f"Successful Inserts: {successful_inserts}")
 
-    event_date = "2024-10-31"
+    event_date = "2024-11-14"
     segment_efforts = segments.get_all_efforts_by_segment_ids(segment_ids, event_date)
     print(segment_efforts)
     return render_template('dashboard.html', athlete_data=athlete_data, segment_efforts=segment_efforts)

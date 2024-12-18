@@ -2,8 +2,6 @@
 
 ### To-Do: Tickets 
 
-- **[SLING-7]** Update DNS so that `slingshot.wtf` forwards to `https://slingshot.wtf`. 
-
 ### Setup
 To set up the project, follow these steps:
 

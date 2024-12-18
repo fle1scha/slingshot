@@ -16,15 +16,15 @@
             padding: 16px;
             box-sizing: border-box;
             position: relative;
-            min-height: 100vh; 
-            overflow: auto; 
+            min-height: 100vh;
+            overflow: auto;
         }
 
         .powered-by {
             position: absolute;
             top: 10px;
             left: 10px;
-            z-index: 10; 
+            z-index: 10;
             width: 100px;
         }
 
@@ -51,7 +51,7 @@
             align-items: center;
             width: 90%;
             max-width: 600px;
-            margin-top: 120px; 
+            margin-top: 120px;
         }
 
         .card {
@@ -108,7 +108,7 @@
 
         th,
         td {
-            padding: 5px; 
+            padding: 5px;
             text-align: center;
             border: 1px solid #ccc;
         }
@@ -141,26 +141,27 @@
 
             th,
             td {
-                font-size: 12px;  
-                padding: 4px;     
+                font-size: 12px;
+                padding: 4px;
             }
         }
     </style>
 </head>
 
 <body>
-    <img src="/static/powered-by-strava.png" alt="Powered by Strava" class="powered-by"> 
+    <img src="/static/powered-by-strava.png" alt="Powered by Strava" class="powered-by">
 
     <a href="/race" class="logout">sign out</a>
 
     <div class="card-greeting">
         <h3 class="form-title">hello, {{ athlete_data.username }}</h3>
-        <div class="message">You're running a 10km course with four marked segments.
+        <div class="message">You're running a 10km <a
+                href="https://www.strava.com/routes/3291943039984422390">course</a> with marked segments.
             Run one of the segments in the fastest time to win. <br><br>
-            <a href="https://www.strava.com/segments/17115468">JDB's secret trail</a><br>
-            <a href="https://www.strava.com/segments/9823103">Frisbee Golf CrossOver</a><br>
-            <a href="https://www.strava.com/segments/792156">Strawberry Hill</a><br>
-            <a href="https://www.strava.com/segments/1166988">Aids Memorial Grove</a>
+            <a href="https://www.strava.com/segments/1750852">Mountain Lake-Golf Course Hill</a><br>
+            <a href="https://www.strava.com/segments/26592018">Trail under GG bridge</a><br>
+            <a href="https://www.strava.com/segments/968449">Lobos Creek Valley Trail</a><br>
+            <a href="https://www.strava.com/segments/996627">Into the Woods</a><br>
         </div>
     </div>
 
