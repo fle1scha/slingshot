@@ -1,7 +1,7 @@
 import requests
 from flask import Flask, request, redirect, jsonify, session, render_template, url_for
 from config import Config
-from app import app, broadcaster, segments, strava 
+from app import app, broadcaster, strava, arena
 
 app.secret_key = Config.FLASK_SECRET_KEY
 REDIRECT_URI = Config.HOST + '/callback'
@@ -47,6 +47,12 @@ def dashboard():
     print(segment_efforts)
     
     return render_template('dashboard.html', athlete_data=athlete_data, segment_efforts=segment_efforts)
+
+@app.route('/api/arenadata', methods=['GET'])
+def get_are_na_images():
+    """API endpoint to get images from Are.na"""
+    images = arena.fetch_images()
+    return jsonify(images)
 
 def handle_index_post(request):
     input_phone_number = request.form['phone_number']
