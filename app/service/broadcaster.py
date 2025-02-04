@@ -2,7 +2,6 @@ from twilio.base.exceptions import TwilioRestException
 from config import Config
 
 class Broadcaster:
- 
     def __init__(self, users_repo, twilio_client, logger):
         """
         Initializes the Broadcaster class with the Twilio client and a logger.
@@ -58,7 +57,7 @@ class Broadcaster:
                 return True, ""
         except Exception as e:
             self.logger.error(f"Unexpected error occurred while sending message to {phone_number}. Error: {str(e)}")
-            return False, 'error. please try again later.'
+            return False, 'Error. Please try again later.'
 
     # Sends a message to the number and optionally creates a db entry
     def send_message(self, name, phone_number, message_body, register_user=True):
@@ -69,13 +68,17 @@ class Broadcaster:
                 if not success:
                     if error_message == 'already_registered':
                         self.logger.info(f"{phone_number} under name {name} already in database. Error: {error_message}")
-                        return False, 'already with us.'
+                        return False, 'Already with us.'
                     else:
                         self.logger.error(f"Failed to add {name} with phone number {phone_number} to the database. Error: {error_message}")
-                        return False, 'error. please try again later.'
+                        return False, 'Error. Please try again later.'
             
             # Send the message internally
             return self._send_message_internal(phone_number, message_body)
         except Exception as e:
             self.logger.error(f"Unexpected error occurred while sending message to {name} with number {phone_number}. Error: {str(e)}")
-            return False, 'error. please try again later.'
+            return False, 'Error. Please try again later.'
+
+    # New method to send the welcome message
+    def send_welcome_message(self, input_name, input_phone_number, welcome_message):
+        return self.send_message(input_name, input_phone_number, welcome_message)

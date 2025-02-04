@@ -3,8 +3,7 @@ from twilio.rest import Client
 from config import Config
 import sys
 
-broadcast_text = "www.slingshot.wtf/run <- tape from our last run, check it out! 10km trail run wednesday @ 18:30. bring a headlamp, bring a friend. we'll hold onto your stuff. all paces, some prizes.\n\nstart and finish - google.com/maps?q=37.771,-122.4568."
-
+broadcast_text = "slingshot.wtf: thanks for a cool first six months. we're excited to share, co-create, and explore. see you soon.\n\nwww.are.na/slingshot-wtf/left-coast"
 def validate_environment():
     """Validate the presence of required environment variables."""
     Config.validate() 
