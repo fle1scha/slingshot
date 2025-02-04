@@ -228,7 +228,26 @@ body {
 }
 
 .rerun-button {
+    z-index: 2; /* Make sure it's above the images */
     display: none;
     flex-direction: column;
     align-items: center;
+}
+
+#slingshot-container {
+    z-index: 2; /* Make sure it's above the images */
+    display: flex;
+    flex-direction: column;  /* Stack elements vertically */
+    align-items: center;     /* Center items */
+    justify-content: center; /* Center content */
+    text-align: center;      /* Ensure text is centered */
+    margin-top: 20px;        /* Adjust spacing */
+}
+
+#slingshot-text {
+    display: none;           /* Initially hidden */
+    max-width: 500px;        /* Prevent overly long text */
+    padding: 10px;
+    font-size: 18px;
+    color: white;
 }

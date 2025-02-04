@@ -1,63 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>slingshot</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
     <style>
-        /* Add some styles for the button */
-        .racing-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px;
-            border: none;
-            border-radius: 2px;
-        }
+      /* Style for the button */
+      .racing-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 10px;
+        border: none;
+        border-radius: 2px;
+        display: none;
+        z-index: 10;
+      }
 
-        .racing-button:hover {
-            background-color: #0056b3;
-            /* Darker shade on hover */
-        }
+      .racing-button:hover {
+        background-color: #0056b3;
+      }
+
+      /* Full-screen container for images */
+      #image-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+      }
+
+      /* Image styling to cover the entire screen */
+      .image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+
+      /* Styling for the form section */
+      #sign-up-form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="background-video">
-        <img src="{{ url_for('static', filename='park_relay.gif') }}" alt="Background Image" class="video-background">
+      <img
+        src="{{ url_for('static', filename='park_relay.gif') }}"
+        alt="Background Image"
+        class="video-background"
+      />
     </div>
 
-    <div id="rerun-button" class="rerun-button" onclick="showSignUp()">
-        <button>be a part of it</button>
+    <div id="image-container"></div>
+    <!-- This will hold the images -->
+
+    <div id="slingshot-container">
+        <div id="slingshot-text">
+            <p>slingshot is a community adventure project.</p>
+        </div>
+        <button id="rerun-button" style="display: none;" onclick="showSignUp()">kick it</button>
     </div>
+    
 
     <div id="sign-up-form" class="content">
-        <div class="logo-container" id="logo">
-            <img src="{{ url_for('static', filename='dragon_wont_sit_still_logo.png') }}" alt="Logo" class="logo">
+      <div class="card">
+        <div id="form-group">
+          <form class="form-container" method="POST" id="form" novalidate>
+            <input
+              type="text"
+              class="form-input"
+              id="name"
+              name="name"
+              placeholder="name"
+            />
+            <input
+              type="tel"
+              class="form-input"
+              id="phone_number"
+              name="phone_number"
+              placeholder="phone number"
+            />
+            <button type="submit" class="btn btn-primary">submit</button>
+          </form>
         </div>
-        <div class="card">
-            <div id="form-group">
-                <form class="form-container" method="POST" id="form" novalidate>
-                    <input type="text" class="form-input" id="name" name="name" placeholder="name">
-                    <input type="tel" class="form-input" id="phone_number" name="phone_number"
-                        placeholder="phone number">
-                    <button type="submit" class="btn btn-primary">submit</button>
-                </form>
-            </div>
-            <h4 class="form-title" id="success-title" style="display: none;">
-                see you soon.
-            </h4>
-            <div class="mt-3 text-center" id="response-message"></div>
-            <div>
-                <p class="text-danger" id="validation-message" style="display:none;">enter a 10-digit phone number.</p>
-                <p class="text-danger" id="error-message" style="display:none;"></p>
-            </div>
+        <h4 class="form-title" id="success-title" style="display: none">
+          see you soon.
+        </h4>
+        <div class="mt-3 text-center" id="response-message"></div>
+        <div>
+          <p class="text-danger" id="validation-message" style="display: none">
+            enter a 10-digit phone number.
+          </p>
+          <p class="text-danger" id="error-message" style="display: none"></p>
         </div>
+      </div>
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-
+  </body>
 </html>
