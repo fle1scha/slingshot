@@ -4,10 +4,13 @@ from twilio.rest import Client
 
 from app.repository.segments import Segments
 from app.repository.users import Users
-from app.service.broadcaster import Broadcaster
 from app.repository.setup_db import setup_database
+
 from app.service.segments import SegmentService
+from app.service.broadcaster import BroadcasterService
+from app.service.arena import ArenaService
 from app.service.strava import StravaService
+
 from config import Config
 
 # Set up logger
@@ -40,7 +43,10 @@ strava = StravaService(segment_service=segments)  # Pass the SegmentService inst
 logger.info("Strava service set up successfully.")
 
 # Set up the broadcaster service for messaging
-broadcaster = Broadcaster(users_repository, twilioClient, logger)
+broadcaster = BroadcasterService(users_repository, twilioClient, logger)
 logger.info("Broadcaster service set up successfully.")
+
+arena = ArenaService()
+logger.info("Arena service set up successfully.")
 
 from . import views
