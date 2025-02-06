@@ -57,7 +57,7 @@ def get_are_na_images():
 def handle_index_post(request):
     input_phone_number = request.form['phone_number']
     input_name = request.form['name']
-    welcome_message = "slingshot is a community adventure project. we'll text you soon."
+    welcome_message = "slingshot is a community adventure project. we'll text you soon. STOP to opt out."
     
     success, error_message =  broadcaster.send_welcome_message(input_name, input_phone_number, welcome_message)
 
