@@ -80,7 +80,7 @@ form.addEventListener("submit", async (event) => {
     } catch (error) {
       if (errorMessage) {
         errorMessage.textContent =
-          "An unexpected error occurred. Please try again later.";
+          "an unexpected error occurred. please try again later.";
         errorMessage.style.display = "block";
 
         setTimeout(() => {
@@ -90,10 +90,10 @@ form.addEventListener("submit", async (event) => {
     }
   } else {
     if (!isValidName(name)) {
-      validationMessage.textContent = "Enter a valid name.";
+      validationMessage.textContent = "enter a valid name.";
       validationMessage.style.display = "block";
     } else {
-      validationMessage.textContent = "Enter a 10-digit phone number.";
+      validationMessage.textContent = "enter a 10-digit phone number.";
       validationMessage.style.display = "block";
     }
 
