@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slingshot: run</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            /* Prevent scrolling */
+            background: url('/static/madison-okay.png') no-repeat center center/cover;
+            /* Background image */
+        }
+
+        #content-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            /* Full viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            color: white;
+            /* Text color for contrast */
+            text-align: center;
+            /* Center text */
+            padding: 20px;
+            /* Add padding to avoid touching edges */
+            box-sizing: border-box;
+            /* Ensure padding is included in width */
+        }
+
+        .strava-embed-placeholder {
+            max-width: 90%;
+            /* Maximum width of 90% for small screens */
+            height: auto;
+            /* Keep height auto to avoid cropping horizontally */
+            aspect-ratio: 16 / 9;
+            /* Maintain aspect ratio */
+        }
+
+        .btn {
+            background: rgb(239, 239, 239);
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+            /* Use a common font for consistency */
+            font-size: 16px;
+            /* Adjust font size */
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn:hover {
+            background: rgba(54, 162, 235, 1);
+        }
+
+        .message {
+            margin: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .list {
+            margin: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #ffffff;
+            font-size: smaller;
+        }
+
+        @media (max-width: 300px) {
+            /* Responsive adjustments for smaller screens */
+            .strava-embed-placeholder {
+                max-width: 90%;
+                /* Adjust to allow full width on very small screens */
+            }
+
+            .btn,
+            .strava-btn {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+
+        .form-title {
+            font-size: 28px;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 1px;
+            text-shadow: 0 0 1px #FF0000, 0 0 1px #0000FF;
+            line-height: 0.8;
+            margin-block-start: 10px;
+            margin-bottom: 10px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content-container">
+        <h5 class="form-title">running?</h5>
+        <a href="/login">
+            <img src="{{ url_for('static', filename='strava-logo.png') }}" alt="login" width="150px" />
+        </a>
+        
+    </div>
+
+</body>
+
+</html>

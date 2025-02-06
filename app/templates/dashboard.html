@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slingshot: dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            background: url('/static/madison-okay.png') repeat center center/cover;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+            box-sizing: border-box;
+            position: relative;
+            min-height: 100vh;
+            overflow: auto;
+        }
+
+        .powered-by {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            width: 100px;
+        }
+
+        .logout {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(245, 245, 245, 0.8);
+            color: rgb(0, 0, 0);
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 10;
+            font-size: small;
+        }
+
+        .card-greeting {
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 600px;
+            margin-top: 120px;
+        }
+
+        .card {
+            padding: 16px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 600px;
+            margin-top: 10px;
+        }
+
+        .form-title {
+            font-size: 20px;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
+        .message {
+            margin-top: 10px;
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .btn {
+            background: #36a2eb;
+            color: #ffffff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            max-width: 140px;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: #2e81c2;
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: small;
+        }
+
+        th,
+        td {
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: rgba(200, 250, 235, 0.3);
+            color: rgb(0, 0, 0);
+        }
+
+        tr {
+            background-color: rgba(235, 235, 235, 0.8);
+            color: #000000;
+        }
+
+        tr:hover {
+            background-color: rgba(54, 162, 235, 0.5);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .card {
+                padding: 12px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            .form-title {
+                font-size: 20px;
+            }
+
+            th,
+            td {
+                font-size: 12px;
+                padding: 4px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <img src="/static/powered-by-strava.png" alt="Powered by Strava" class="powered-by">
+
+    <a href="/" class="logout">sign out</a>
+
+    <div class="card-greeting">
+        <h3 class="form-title">hello, {{ athlete_data.username }}</h3>
+        <div class="message">You're running a 10km <a
+                href="https://www.strava.com/routes/3291943039984422390">course</a> with marked segments.
+            Run one of the segments in the fastest time to win. <br><br>
+            <a href="https://www.strava.com/segments/1750852">Mountain Lake-Golf Course Hill</a><br>
+            <a href="https://www.strava.com/segments/26592018">Trail under GG bridge</a><br>
+            <a href="https://www.strava.com/segments/968449">Lobos Creek Valley Trail</a><br>
+            <a href="https://www.strava.com/segments/996627">Into the Woods</a><br>
+        </div>
+    </div>
+
+    {% for segment_title, segment_data in segment_efforts.items() %}
+    <div class="card">
+        <h3 class="form-title">{{ segment_title }}</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Time Taken (seconds)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for effort in segment_data %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ effort.username }}</td>
+                    <td>{{ effort.time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+</body>
+
+</html>

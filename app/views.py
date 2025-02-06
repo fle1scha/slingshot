@@ -1,44 +1,67 @@
-from flask import request, jsonify, render_template
-from app import app, broadcaster
-from config import Config 
+import requests
+from flask import Flask, request, redirect, jsonify, session, render_template, url_for
+from config import Config
+from app import app, broadcaster, strava, arena
+
+app.secret_key = Config.FLASK_SECRET_KEY
+REDIRECT_URI = Config.HOST + '/callback'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        input_phone_number = request.form['phone_number']
-        input_name = request.form['name']
-        welcome_message = 'slingshot is a community adventure project. we will text you soon.'
-        success, error_message = broadcaster.send_message(input_name, input_phone_number, welcome_message)
-
-        if success:
-            return jsonify({'success': True})
-        else:
-            return jsonify({'error': True, 'error_message': error_message}), 400
-
+        return handle_index_post(request)
     return render_template('index.html')
 
-@app.route('/merch', methods=['GET', 'POST'])
-def merch_view():
-    if request.method == 'POST':
-        input_phone_number = request.form['phone_number']
-        input_name = request.form['name']
-        input_size = request.form['shirt_size']
-        tshirt_type = request.form['tshirt_type']
-        admin_number = Config.ADMIN_PHONE_NUMBER
+@app.route('/login', methods=['GET'])
+def login():
+    authorization_url = strava.get_authorization_url()
+    return redirect(authorization_url)
 
-        order_message = f'slingshot.wtf order: {input_name}, {input_phone_number},  ordered a {input_size} {tshirt_type} shirt.'
-        success_admin, error_message_admin = broadcaster.send_message(input_name, admin_number, order_message, False)
-
-        if success_admin:
-            order_success_message = f'mailman here. got your order for a {input_size} {tshirt_type} shirt. will be in touch about delivery.\n\nslingshot.wtf'
-
-            success_user, error_message_user = broadcaster.send_message(input_name, input_phone_number, order_success_message, False)
-
-            if success_user:
-                return jsonify({'success': True})
-            else:
-                return jsonify({'error': True, 'error_message': error_message_user}), 400
-        else:
-            return jsonify({'error': True, 'error_message': error_message_admin}), 400
+@app.route('/callback', methods=['GET'])
+def callback():
+    code = request.args.get('code')
+    access_token = strava.exchange_code_for_token(code)
     
-    return render_template('merch.html')
+    if not access_token:
+        return jsonify({'error': 'Failed to obtain access token from Strava'}), 400
+
+    session['access_token'] = access_token
+    return redirect(url_for('dashboard'))
+
+@app.route('/dashboard', methods=['GET'])
+def dashboard():
+    access_token = session.get('access_token')
+    if not access_token:
+        return redirect(url_for('login'))  # Redirect to the login route, not 'strava'
+
+    athlete_data = strava.get_athlete_data(access_token)
+    if not athlete_data:
+        return jsonify({'error': 'Failed to fetch athlete data'}), 400
+
+    # Fetch and store segment times via the strava service
+    successful_inserts, errors = strava.fetch_and_store_segment_data(access_token, athlete_data)
+
+    # Get segment efforts via the strava service
+    segment_efforts = strava.get_segment_efforts()
+
+    print(segment_efforts)
+    
+    return render_template('dashboard.html', athlete_data=athlete_data, segment_efforts=segment_efforts)
+
+@app.route('/api/arenadata', methods=['GET'])
+def get_are_na_images():
+    """API endpoint to get images from Are.na"""
+    images = arena.fetch_images()
+    return jsonify(images)
+
+def handle_index_post(request):
+    input_phone_number = request.form['phone_number']
+    input_name = request.form['name']
+    welcome_message = "slingshot is a community adventure project. we'll text you soon. STOP to opt out."
+    
+    success, error_message =  broadcaster.send_welcome_message(input_name, input_phone_number, welcome_message)
+
+    if success:
+        return jsonify({'success': True})
+    else:
+        return jsonify({'error': True, 'error_message': error_message}), 400

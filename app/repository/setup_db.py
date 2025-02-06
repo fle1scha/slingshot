@@ -19,6 +19,19 @@ CREATE TABLE IF NOT EXISTS `{Config.DB_NAME}`.`users` (
 );
 """
 
+CREATE_TABLE_SEGMENTS_SQL = f"""
+CREATE TABLE IF NOT EXISTS `{Config.DB_NAME}`.`segments` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `username` VARCHAR(100) NOT NULL,
+    `user_id` VARCHAR(100) NOT NULL,
+    `segment_id` VARCHAR(100) NOT NULL,
+    `time_taken` INT NOT NULL,
+    `date_of_effort` TIMESTAMP NOT NULL,
+    `date_added` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `date_updated` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+"""
+
 def run_sql_command(sql_command, logger, max_retries=3, retry_delay=5):
     retries = 0
     while retries < max_retries:
@@ -81,6 +94,14 @@ def setup_database(logger, max_retries=3, retry_delay=5):
                 return
 
             logger.info("Table 'users' created or already exists in the database.")
+            
+            table_error = run_sql_command(CREATE_TABLE_SEGMENTS_SQL, logger)
+            if table_error:
+                logger.error(table_error)
+                return
+            
+            logger.info("Table 'segments' created or already exists in the database.")
+
             return
         except pymysql.err.OperationalError as e:
             if e.args[0] == 2006:  # MySQL server has gone away

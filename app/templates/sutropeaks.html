@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slingshot: relay</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #controls {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            z-index: 1;
+        }
+
+        button {
+            margin: 0 5px;
+        }
+
+        @media (max-width: 300px) {
+            #controls {
+                bottom: 5px;
+                right: 5px;
+            }
+
+            button {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="video-container">
+        <video id="myVideo" autoplay muted loop playsinline>
+            <source src="{{ url_for('static', filename='park_relay.mp4') }}" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+        <div id="controls">
+            <button id="playPauseBtn" onclick="togglePlay()">Pause</button>
+            <button id="muteBtn" onclick="toggleMute()">Unmute</button>
+            <button onclick="location.href='/'">Home</button>
+        </div>
+    </div>
+
+    <script>
+        var video = document.getElementById("myVideo");
+        var playPauseBtn = document.getElementById("playPauseBtn");
+        var muteBtn = document.getElementById("muteBtn");
+
+        function togglePlay() {
+            video.paused ? video.play() : video.pause();
+            playPauseBtn.innerText = video.paused ? "Play" : "Pause";
+        }
+
+        function toggleMute() {
+            video.muted = !video.muted;
+            muteBtn.innerText = video.muted ? "Unmute" : "Mute";
+        }
+    </script>
+
+</body>
+
+</html>
