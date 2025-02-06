@@ -1,253 +1,289 @@
+@import url("https://fonts.googleapis.com/css2?family=Rock+3D&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=LexendDeca&display=swap");
+
 body {
-    background: url('/static/madison-okay.png') no-repeat center center/cover;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    padding: 16px;
-    box-sizing: border-box;
+  background: url("/static/madison-okay.png") no-repeat center center/cover;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .card {
-    background-color: transparent;
-    padding: 24px;
-    border-radius: 2px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
+  background-color: transparent;
+  padding: 24px;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .logo-container {
-    display: none;
-    justify-content: center;
-    margin-bottom: 8px;
+  display: none;
+  justify-content: center;
+  margin-bottom: 8px;
 }
 
 .logo {
-    max-width: 150px;
-    height: auto;
+  max-width: 150px;
+  height: auto;
 }
 
-.form-title, .btn-primary, .form-medium, .form-small, .text-danger, .small-text {
-    color: #ffffff;
-    text-align: center;
-    font-family: helvetica;
+.form-title,
+.btn-primary,
+.form-medium,
+.form-small,
+.text-danger,
+.small-text {
+  color: #ffffff;
+  text-align: center;
+  font-family: helvetica;
 }
 
 .form-title {
-    font-size: 28px; 
-    color: #ffffff; 
-    text-align: center; 
-    margin-bottom: 1px; 
-    text-shadow: 0 0 1px #FF0000, 0 0 1px #0000FF;
-    line-height: 0.8; 
-    margin-block-start: 10px;
+  font-size: 28px;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 1px;
+  line-height: 0.8;
+  margin-block-start: 10px;
 }
 
-
 .form-medium {
-    font-size: 21px; 
-    color: #ffffff;
-    text-align: center; 
-    margin-bottom: 1px; 
-    text-shadow: 0 0 1px #FF0000, 0 0 1px #0000FF;
-    line-height: 0.8; 
-    margin-block-start: 10px;
+  font-size: 21px;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 1px;
+  line-height: 0.8;
+  margin-block-start: 10px;
 }
 
 .content-wrapper {
-    display: flex;              /* Enable flexbox layout */
-    flex-direction: column;     /* Stack child elements vertically */
-    align-items: center;        /* Center the items horizontally */
-    margin: 16px;              /* Optional: spacing around the wrapper */
+  display: flex; /* Enable flexbox layout */
+  flex-direction: column; /* Stack child elements vertically */
+  align-items: center; /* Center the items horizontally */
+  margin: 16px; /* Optional: spacing around the wrapper */
 }
 
-.form-small, .text-danger {
-    font-size: 16px;
+.form-small,
+.text-danger {
+  font-size: 12px;
 }
 
 .form-small {
-    text-shadow: 0 0 2px #FF0000, 0 0 5px #0000FF;
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
-.text-danger, .small-text {
-    font-size: 14px;
+.text-danger {
+  font-size: 14px;
 }
 
 .form-container {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
-.form-input, .form-select {
-    border-radius: 2px;
-    padding: 12px;
-    font-size: 19.2px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.075);
-    width: 100%;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
-    margin-bottom: 16px;
-    max-width: 288px;
+.form-input,
+.form-select {
+  border-radius: 2px;
+  padding: 12px;
+  font-size: 19.2px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.075);
+  width: 100%;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  margin-bottom: 16px;
+  max-width: 288px;
 }
 
 .form-select {
-    max-width: 352px;
+  max-width: 352px;
 }
 
 .btn-primary {
-    background: rgb(239, 239, 239);
-    color: rgb(0, 0, 0);
-    border: none;
-    border-radius: 2px;
-    padding: 10px;
-    width: 100%;
-    max-width: 140px;
+  background: rgb(239, 239, 239);
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 2px;
+  padding: 10px;
+  width: 100%;
+  max-width: 140px;
+  margin-bottom: 6px;
 }
 
 .form-actions {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
-.form-input:focus, .btn-primary:focus {
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.25);
+.form-input:focus,
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.25);
 }
 
 .small-text {
-    position: absolute;
-    bottom: 10px;
-    width: 60%;
-    text-align: center;
-    font-size: 8px;
+  position: absolute;
+  bottom: 10px;
+  width: 60%;
+  text-align: center;
+  font-size: 8px;
 }
 
 .tshirt-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 32px;
-    gap: 16px;
-    flex-wrap: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 32px;
+  gap: 16px;
+  flex-wrap: nowrap;
 }
 
 .tshirt-box {
-    width: 48%;
-    max-width: 180px;
-    border: 1px solid #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.3s;
-    box-sizing: border-box;
+  width: 48%;
+  max-width: 180px;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+  box-sizing: border-box;
 }
 
 .tshirt-box img {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 
 .tshirt-box:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 /* Responsive Styles */
 @media (max-width: 767px) {
-    .form-control {
-        max-width: 90%;
-    }
-    
-    .btn-primary {
-        width: 48%;
-    }
+  .form-control {
+    max-width: 90%;
+  }
 
-    .logo {
-        max-width: 120px;
-    }
+  .btn-primary {
+    width: 58%;
+  }
 
-    .form-small {
-        display: block;
-    }
-    
-    .tshirt-container {
-        justify-content: space-between;
-    }
-    
-    .tshirt-box {
-        width: 48%;
-        max-width: 140px;
-    }
+  .logo {
+    max-width: 120px;
+  }
+
+  .form-small {
+    display: block;
+  }
+
+  .tshirt-container {
+    justify-content: space-between;
+  }
+
+  .tshirt-box {
+    width: 48%;
+    max-width: 140px;
+  }
 }
 
 @media (min-width: 767px) {
-    .card {
-        width: auto;
-    }
-    
-    .tshirt-box {
-        width: 35%;
-        max-width: 240px;
-    }
+  .card {
+    width: auto;
+  }
+
+  .tshirt-box {
+    width: 35%;
+    max-width: 240px;
+  }
 }
 
 @media (max-width: 600px) {
-    .card {
-        width: 90%; 
-        padding: 10px; 
-    }
+  .card {
+    width: 90%;
+    padding: 10px;
+  }
 }
 
 .video-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    object-fit: cover;
-    filter: sepia(100%) contrast(1.2) brightness(0.8) hue-rotate(180deg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  object-fit: cover;
+  filter: contrast(1.2) brightness(0.8);
 }
 
-.rerun-button, .unmute-button {
-    padding: 10px;
-    color: white;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
+.rerun-button,
+.unmute-button {
+  padding: 15px;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
 .rerun-button {
-    z-index: 2; /* Make sure it's above the images */
-    display: none;
-    flex-direction: column;
-    align-items: center;
+  z-index: 2; /* Make sure it's above the images */
+  display: none;
+  flex-direction: column;
+  align-items: center;
 }
 
 #slingshot-container {
-    z-index: 2; /* Make sure it's above the images */
-    display: flex;
-    flex-direction: column;  /* Stack elements vertically */
-    align-items: center;     /* Center items */
-    justify-content: center; /* Center content */
-    text-align: center;      /* Ensure text is centered */
-    margin-top: 20px;        /* Adjust spacing */
+  z-index: 2; /* Make sure it's above the images */
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center items */
+  justify-content: center; /* Center content */
+  text-align: center; /* Ensure text is centered */
 }
 
-#slingshot-text {
-    display: none;           /* Initially hidden */
-    max-width: 500px;        /* Prevent overly long text */
-    padding: 10px;
-    font-size: 18px;
-    color: white;
+.slingshot-text,
+#slingshot-description {
+  width: 100%; /* Full width but constrained by max-width */
+  max-width: 300px; /* Constrains the width to a more comfortable reading size */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Apply Moo Lah Lah font to 'slingshot' text */
+.slingshot-text {
+  font-family: "Rock 3D", serif;
+  font-size: 42px; /* Adjust the size as needed */
+  color: #ffffff;
+  text-shadow: 0 0 2px #119d11, 0 0 5px #bfff00;
+  line-height: 1.2;
+}
+
+/* Styling for the description box */
+#slingshot-description {
+  color: #ffffff;
+  font-family: "Lexend Deca", serif;
+  font-size: 18px;
+  text-shadow: 0 0 2px #067a06, 0 0 5px #ffffff;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Other styles for button */
+.rerun-button {
+  z-index: 2; /* Make sure it's above the images */
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px; /* Space between description and button */
 }
