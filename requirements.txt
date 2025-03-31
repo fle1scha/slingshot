@@ -4,3 +4,4 @@ Flask-SQLAlchemy
 pymysql
 cryptography
 python-dotenv
+dbutils
