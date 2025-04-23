@@ -1,7 +1,8 @@
-flask
-twilio
+Flask
 Flask-SQLAlchemy
+Flask-Limiter
 pymysql
 cryptography
+twilio
 python-dotenv
 dbutils

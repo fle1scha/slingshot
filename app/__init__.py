@@ -11,6 +11,9 @@ from app.service.broadcaster import BroadcasterService
 from app.service.arena import ArenaService
 from app.service.strava import StravaService
 
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
 from config import Config
 
 # Set up logger
@@ -19,6 +22,7 @@ logger = logging.getLogger(__name__)
 
 # Initialize Flask App
 app = Flask(__name__)
+limiter = Limiter(get_remote_address, app=app, default_limits=["10000 per hour"])
 app.static_folder = 'static'
 
 # Setup the database

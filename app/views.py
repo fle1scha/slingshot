@@ -1,17 +1,39 @@
 import requests
 from flask import Flask, request, redirect, jsonify, session, render_template, url_for
 from config import Config
-from app import app, broadcaster, strava, arena
+from app import app, broadcaster, strava, arena, limiter
 
 app.secret_key = Config.FLASK_SECRET_KEY
 REDIRECT_URI = Config.HOST + '/callback'
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
-    if request.method == 'POST':
-        return handle_index_post(request)
     return render_template('index.html')
 
+@app.route('/', methods=['POST'])
+@limiter.limit("5 per minute")  
+def handle_index_post():
+    input_phone_number = request.form.get('phone_number')
+    input_name = request.form.get('name')
+
+    client_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    user_agent = request.headers.get('User-Agent', 'unknown')
+
+    app.logger.info(f"POST from {client_ip} | UA: {user_agent} | Name: {input_name} | Phone: {input_phone_number}")
+    
+    welcome_message = (
+        "slingshot is a community adventure project. sunset group ride, speck of dirt. 04/24, 19:00; 37.77303, -122.46328. STOP to opt out."
+    )
+
+    success, error_message = broadcaster.send_welcome_message(
+        input_name, input_phone_number, welcome_message
+    )
+
+    if success:
+        return jsonify({'success': True})
+    else:
+        return jsonify({'error': True, 'error_message': error_message}), 400
+ 
 @app.route('/login', methods=['GET'])
 def login():
     authorization_url = strava.get_authorization_url()
@@ -53,15 +75,3 @@ def get_are_na_images():
     """API endpoint to get images from Are.na"""
     images = arena.fetch_images()
     return jsonify(images)
-
-def handle_index_post(request):
-    input_phone_number = request.form['phone_number']
-    input_name = request.form['name']
-    welcome_message = "slingshot is a community adventure project. we'll text you soon. STOP to opt out."
-    
-    success, error_message =  broadcaster.send_welcome_message(input_name, input_phone_number, welcome_message)
-
-    if success:
-        return jsonify({'success': True})
-    else:
-        return jsonify({'error': True, 'error_message': error_message}), 400

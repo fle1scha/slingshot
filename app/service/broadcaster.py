@@ -1,3 +1,4 @@
+import re
 from twilio.base.exceptions import TwilioRestException
 from config import Config
 
@@ -59,12 +60,23 @@ class BroadcasterService:
             self.logger.error(f"Unexpected error occurred while sending message to {phone_number}. Error: {str(e)}")
             return False, 'error. please try again later.'
 
-    # Sends a message to the number and optionally creates a db entry
+
+    def send_welcome_message(self, input_name, input_phone_number, welcome_message):
+        return self.send_message(input_name, input_phone_number, welcome_message)
+
+
     def send_message(self, name, phone_number, message_body, register_user=True):
         try:
+            if not is_valid_us_phone_number(phone_number):
+                self.logger.warning(f"Invalid phone number format: {phone_number}")
+                return False, 'invalid phone number format.'
+
+            if not name or not is_safe_input(name) or len(name) > 100:
+                self.logger.warning(f"Invalid or unsafe name: {name}")
+                return False, 'invalid name.'
+
             if register_user:
-                # Add the user to the database
-                success, error_message = self.repository.insert_new_user(name, phone_number)
+                success, error_message = self.repository.insert_new_user(name.strip(), phone_number.strip())
                 if not success:
                     if error_message == 'already_registered':
                         self.logger.info(f"{phone_number} under name {name} already in database. Error: {error_message}")
@@ -72,13 +84,16 @@ class BroadcasterService:
                     else:
                         self.logger.error(f"Failed to add {name} with phone number {phone_number} to the database. Error: {error_message}")
                         return False, 'error. Please try again later.'
-            
-            # Send the message internally
-            return self._send_message_internal(phone_number, message_body)
+
+            return self._send_message_internal(phone_number.strip(), message_body.strip())
+
         except Exception as e:
             self.logger.error(f"Unexpected error occurred while sending message to {name} with number {phone_number}. Error: {str(e)}")
             return False, 'error. please try again later.'
+        
+def is_valid_us_phone_number(phone_number):
+        pattern = re.compile(r'^(?:\+1\s?)?(?:\(?\d{3}\)?[\s.-]?)?\d{3}[\s.-]?\d{4}$')
+        return pattern.match(phone_number) is not None
 
-    # New method to send the welcome message
-    def send_welcome_message(self, input_name, input_phone_number, welcome_message):
-        return self.send_message(input_name, input_phone_number, welcome_message)
+def is_safe_input(text):
+        return not re.search(r'[<>{};$]', text)
