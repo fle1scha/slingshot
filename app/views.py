@@ -22,7 +22,7 @@ def handle_index_post():
     app.logger.info(f"POST from {client_ip} | UA: {user_agent} | Name: {input_name} | Phone: {input_phone_number}")
     
     welcome_message = (
-        "slingshot is a community adventure project. sunset group ride, speck of dirt. 04/24, 19:00; 37.77303, -122.46328. STOP to opt out."
+        "slingshot is a community adventure project. we'll text you soon. STOP to opt out."
     )
 
     success, error_message = broadcaster.send_welcome_message(

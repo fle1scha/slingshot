@@ -3,7 +3,7 @@ from twilio.rest import Client
 from config import Config
 import sys
 
-broadcast_text = "slingshot.wtf: thanks for a cool first six months. we're excited to share, co-create, and explore. see you soon.\n\nwww.are.na/slingshot-wtf/left-coast"
+broadcast_text = "www.slingshot.wtf: battery sunset ride; 09/10, 18:30; bring something to share + your lights. all people, all bikes, all paces.\nmeet at https://what3words.com/logic.heap.bars. \n\nSTOP to opt out."
 def validate_environment():
     """Validate the presence of required environment variables."""
     Config.validate() 
@@ -13,7 +13,6 @@ def retrieve_contacts():
     twilio_client = Client(Config.TWILIO_ACCOUNT_SID, Config.TWILIO_AUTH_TOKEN)
     contacts = set()
 
-    # Retrieve all phone numbers that have been sent messages
     messages = twilio_client.messages.list()
     for message in messages:
         # Check if the phone number is in the format +1XXXXXXXXXX
